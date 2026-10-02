@@ -5,7 +5,7 @@
     "description": "Small pulsing status dots simulate liveness decoratively. Reserve pulse animation for indicators tied to genuinely live, changing data; a static indicator with clear labeling is honest and calmer.",
     "severity": "error",
     "category": "slop",
-    "file": "/Users/stanley/projects/garmin-activities-trend/viz/index.html",
+    "file": "/Users/stanley/projects/GarminPaceExplorer/viz/index.html",
     "line": 0,
     "snippet": ".sync-dot — 8x8px dot with infinite \"sync-flash\" animation in header/nav"
   },
@@ -15,7 +15,7 @@
     "description": "Thick accent border on a rounded card — the border clashes with the rounded corners. Remove the border or the border-radius.",
     "severity": "warning",
     "category": "slop",
-    "file": "/Users/stanley/projects/garmin-activities-trend/viz/styles.css",
+    "file": "/Users/stanley/projects/GarminPaceExplorer/viz/styles.css",
     "line": 33,
     "snippet": "border-top: 3px solid"
   }

@@ -1,7 +1,7 @@
 [project]
-name = "garmin"
+name = "garminpaceexplorer"
 version = "0.1.0"
-description = "Add your description here"
+description = "Explore personal Garmin activity history and monthly pace with private accounts."
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [

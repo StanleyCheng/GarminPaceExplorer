@@ -1,5 +1,5 @@
 ---
-name: Pace Explorer
+name: GarminPaceExplorer
 description: The incumbent blue and green visual system for personal pace history.
 colors:
   navy: "#1f4e78"
@@ -121,18 +121,18 @@ components:
     padding: "14px 16px"
 ---
 
-# Design System: Pace Explorer
+# Design System: GarminPaceExplorer
 
 ## Overview
 
-**Creative North Star: "Pace Explorer"**
+**Creative North Star: "GarminPaceExplorer"**
 
 The existing icon and blue and green identity are the visual anchor. Navy carries the application name, blue carries the pace line, and green carries primary actions. The interface uses familiar forms, restrained headings, and a light blue-gray canvas to keep personal history readable.
 
 The system is compact and flat. White data surfaces, fine separators, and clear labels establish hierarchy without decorative metric cards or raised effects. Account screens use the same controls and type as the dashboard. This document records the implementation in `viz/index.html`, `viz/styles.css`, and `viz/app.js`; it extends the incumbent identity rather than creating a new one.
 
 **Key Characteristics:**
-- Existing Pace Explorer icon and blue and green identity.
+- Existing GarminPaceExplorer icon and blue and green identity.
 - Single UI font with sentence-case headings and labels.
 - White data surfaces with quiet borders and no shadows.
 - Explicit input labels, visible keyboard focus, and generous action targets.
@@ -250,7 +250,7 @@ Cleaning details and Garmin verification use native disclosures with navy summar
 ## Do's and Don'ts
 
 ### Do:
-- **Do** preserve the existing Pace Explorer icon and blue and green identity.
+- **Do** preserve the existing GarminPaceExplorer icon and blue and green identity.
 - **Do** reuse the shared field, button, border, and spacing treatments across account and dashboard screens.
 - **Do** retain visible labels, keyboard outlines, and the established minimum action targets.
 - **Do** keep timestamps and data values legible with tabular numerals and intact units.

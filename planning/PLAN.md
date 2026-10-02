@@ -30,7 +30,7 @@ Replace the existing single-year, single-metric Garmin trend page with a richer,
 ## 2. Architecture & Files
 
 ```
-garmin2/
+GarminPaceExplorer/
 ├── get_data.py             # Garmin fetch + auth + retry (new module — replaces inline fetch)
 ├── transform.py            # normalize, clean (pace/distance/HR/duration/type), bucket
 ├── aggregate.py            # build monthly rollups (per year + per distance bucket) + JSON payload

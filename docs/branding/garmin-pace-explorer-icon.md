@@ -1,11 +1,11 @@
-# Pace Explorer icon
+# GarminPaceExplorer icon
 
 The selected Garmin runner and activity-trend icon was supplied by the user,
 then extracted with the built-in imagegen tool on 2026-10-02. The approved
-transparent master is in `assets/branding/pace-explorer-master.png`.
+transparent master is in `assets/branding/garmin-pace-explorer-master.png`.
 
 Browser exports in `viz/` use the same artwork at 16px, 32px, and 48px (ICO).
-The Apple touch icon is 180px and `viz/icons/pace-explorer.png` is 512px.
+The Apple touch icon is 180px and `viz/icons/garmin-pace-explorer.png` is 512px.
 Exports only resize or encode the approved artwork and preserve its alpha
 channel and rounded corners. The dashboard header, browser favicons, and
 Safari bookmark/home-screen icon all use this artwork. Icon URLs include

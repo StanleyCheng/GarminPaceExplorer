@@ -1,4 +1,4 @@
-# Pace Explorer
+# GarminPaceExplorer
 
 <!-- impeccable:product-schema 1 -->
 
@@ -35,7 +35,7 @@ changing the Garmin username and password. Each user's data stays separate.
 
 ## Brand Commitments
 
-Keep the Pace Explorer name, existing icon, and blue/green identity. The user
+Keep the GarminPaceExplorer name, existing icon, and blue/green identity. The user
 requested a cleaner, more polished interface using Impeccable.
 
 ## Evidence on Hand

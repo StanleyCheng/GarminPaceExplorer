@@ -360,7 +360,7 @@ function setAuthMode(signup) {
   password.minLength = signup ? 10 : 1;
   document.getElementById("signup-garmin-password").value = "";
   document.getElementById("auth-submit").textContent = signup ? "Create account and import" : "Sign in";
-  document.getElementById("auth-switch-copy").textContent = signup ? "Already have an account?" : "New to Pace Explorer?";
+  document.getElementById("auth-switch-copy").textContent = signup ? "Already have an account?" : "New to GarminPaceExplorer?";
   document.getElementById("auth-switch").textContent = signup ? "Sign in" : "Create an account";
 }
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Garmin Dashboard · Codebase Map</title>
+  <title>GarminPaceExplorer · Codebase Map</title>
   <style>
     :root { --ink:#172033; --muted:#667085; --paper:#f7f8fc; --panel:#fff; --line:#dce2ed; --blue:#246bfe; --teal:#0a9e95; --orange:#f08a24; --violet:#7458e8; --shadow:0 14px 35px rgba(22,34,56,.08); }
     * { box-sizing:border-box; }
@@ -41,7 +41,7 @@
 <body>
   <header class="hero">
     <div class="shell">
-      <p class="eyebrow">Repository guide · Garmin activity dashboard</p>
+      <p class="eyebrow">Repository guide · GarminPaceExplorer</p>
       <h1>From Garmin data to two ways of seeing it.</h1>
       <p class="hero-copy">This map follows the actual production paths: fetch and clean activity data, build exports, then render either the browser dashboard or a local static chart. Select a box to inspect its responsibility and connections.</p>
       <div class="metrics" aria-label="Codebase summary">
@@ -95,7 +95,7 @@
         </div>
         <aside class="inspector" id="inspector" aria-live="polite"></aside>
       </div>
-      <p class="note"><strong>Deployment boundary:</strong> Netlify publishes <code>viz/</code> only. This repository map lives at the root for local documentation, so it does not replace the deployed Garmin dashboard.</p>
+      <p class="note"><strong>Deployment boundary:</strong> Vercel serves <code>viz/</code> and the Python API; Netlify can publish <code>viz/</code> for static viewing. This repository map lives at the root for local documentation, so it does not replace the deployed Garmin dashboard.</p>
     </section>
 
     <section class="view" id="surfaces">
@@ -132,7 +132,7 @@
 
     <section class="view" id="tree">
       <div class="section-heading"><h2>Repository structure</h2><p>Grouped by responsibility rather than every generated or private local file.</p></div>
-      <div class="tree"><b>garmin2/</b>
+      <div class="tree"><b>GarminPaceExplorer/</b>
 ├── <b>get-garmin.py</b>              <span class="muted"># CLI composition root; writes Excel + JSON</span>
 ├── <b>get_data.py</b>                <span class="muted"># Garmin authentication, token reuse, pagination, retry</span>
 ├── <b>transform.py</b>               <span class="muted"># raw activity → normalized record → clean record / bucket</span>

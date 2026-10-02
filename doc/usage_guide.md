@@ -1,4 +1,4 @@
-# Garmin Activity Dashboard: Usage Guide
+# GarminPaceExplorer: Usage Guide
 
 This guide covers the normal workflow: install the project once, fetch Garmin
 activities, view the interactive dashboard, and optionally export a static
@@ -12,7 +12,7 @@ active Garmin Connect account.
 Open a terminal in the project directory:
 
 ```sh
-cd /Users/stanley/Library/CloudStorage/OneDrive-Personal/projects/garmin2
+cd /Users/stanley/projects/GarminPaceExplorer
 ```
 
 ## 2. Install the project

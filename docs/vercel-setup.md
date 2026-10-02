@@ -1,14 +1,17 @@
-# Vercel and Supabase setup
+# GarminPaceExplorer: Vercel and Supabase setup
 
-Vercel serves the static dashboard in `viz/` and the Python API at
-`/api/dashboard`. A dedicated Supabase project stores each user's profile,
+The `garminpaceexplorer` Vercel project serves the static dashboard in `viz/`
+and the Python API at `/api/dashboard`. A dedicated Supabase project stores each user's profile,
 Garmin connection, import progress, and completed dashboard separately.
 Supabase Auth manages app passwords. Garmin credentials and reusable sessions
 are encrypted by the API before storage, with each user's ID bound to the
 ciphertext.
 
-The Vercel Marketplace resource `garmin-activities-trend` was provisioned on
+The existing Vercel Marketplace Supabase resource was provisioned on
 2 October 2026 with Supabase's **Free ($0/month)** plan in **Singapore (`sin1`)**.
+It retains its original `garmin-activities-trend` resource label. Renaming the
+GitHub repository and Vercel project preserves this database, its integration,
+and existing account identities.
 The integration supplies the three Supabase environment variables below.
 SQL schema execution still needs verification, and
 `CREDENTIALS_ENCRYPTION_KEY` still needs manual entry before account features
@@ -16,8 +19,8 @@ are ready.
 
 ## Finish the Supabase database setup
 
-1. Open `garmin-activities-trend` in the Vercel project's **Storage** tab and
-   open its Supabase project dashboard.
+1. Open the existing Supabase resource in the `garminpaceexplorer` project's
+   **Storage** tab and open its Supabase project dashboard.
 2. Verify that the connection provides the required variables for **Production**.
    Use a separate Supabase project for Preview if you want to test without
    accessing production accounts.
@@ -38,7 +41,7 @@ password recovery are intentionally absent from this username-only app.
 
 ## Enter environment variables individually
 
-Open [the Vercel project environment settings](https://vercel.com/stanleychengs-projects/garmin-activities-trend/settings/environment-variables).
+Open [the Vercel project environment settings](https://vercel.com/stanleychengs-projects/garminpaceexplorer/settings/environment-variables).
 The connected integration exports `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`,
 and `SUPABASE_SECRET_KEY` automatically. Verify their **Production** scope,
 then add `CREDENTIALS_ENCRYPTION_KEY` yourself. If a value is missing, obtain
@@ -79,6 +82,10 @@ and `NVIDIA_API_KEY` are only for local tools. The former single-user variables
 not used by this version.
 
 ## Deploy and use the app
+
+The production app is [GarminPaceExplorer](https://garminpaceexplorer.vercel.app).
+The project is connected to [StanleyCheng/GarminPaceExplorer](https://github.com/StanleyCheng/GarminPaceExplorer);
+pushes to `main` deploy automatically.
 
 After saving the variables and applying the SQL schema, open **Deployments**
 in Vercel and **Redeploy** the Production deployment. Environment changes
