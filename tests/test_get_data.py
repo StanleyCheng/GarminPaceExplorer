@@ -51,3 +51,22 @@ def test_fetch_activities_retries_connection_error(monkeypatch):
 
     assert fetch_activities(client, max_activities=1, retries=2) == [1]
     assert delays == [1]
+
+
+def test_fetch_all_activities_has_no_default_history_cap():
+    client = _Client([[1, 2], [3, 4], []])
+    assert fetch_activities(client, max_activities=None, batch_size=2) == [1, 2, 3, 4]
+    assert client.calls == [(0, 2), (2, 2), (4, 2)]
+
+
+def test_fetch_all_continues_after_short_pages_until_empty():
+    client = _Client([[1], [2, 3], [4], []])
+    assert fetch_activities(client, max_activities=None, batch_size=2) == [1, 2, 3, 4]
+    assert client.calls == [(0, 2), (1, 2), (3, 2), (4, 2)]
+
+
+def test_fetch_all_exceeds_ten_thousand_records():
+    client = _Client([[1] * 100 for _ in range(100)] + [[2, 3, 4], []])
+    result = fetch_activities(client, max_activities=None)
+    assert len(result) == 10003
+    assert client.calls[-1] == (10003, 100)

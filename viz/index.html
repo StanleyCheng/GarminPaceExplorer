@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1f4e78" />
+  <meta name="description" content="Explore your personal Garmin activity history and monthly pace." />
   <title>Pace Explorer</title>
   <meta name="application-name" content="Pace Explorer" />
   <meta name="apple-mobile-web-app-title" content="Pace Explorer" />
@@ -11,74 +13,162 @@
   <link rel="icon" href="favicon-32x32.png?v=pace-timer-1" sizes="32x32" type="image/png" />
   <link rel="icon" href="icons/pace-explorer.png?v=pace-timer-1" sizes="512x512" type="image/png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=pace-timer-1" sizes="180x180" />
-  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script defer src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div id="status" class="status" role="status">Loading Garmin pace data…</div>
-
-  <main id="app" class="workbook" hidden>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div id="app" class="app-shell">
     <header class="title-strip">
-      <h1>Pace Explorer</h1>
+      <div class="brand">
+        <img class="brand-icon" src="apple-touch-icon.png" alt="" width="40" height="40" />
+        <h1>Pace Explorer</h1>
+      </div>
+      <div class="refresh-control">
+        <div class="update-label">
+          <span class="sync-label"><span id="sync-dot" class="sync-dot" hidden aria-hidden="true"></span><span id="sync-label">Last data update</span></span>
+          <time id="last-updated">Not synced yet</time>
+        </div>
+        <button id="refresh-button" class="refresh-button" type="button" disabled aria-label="Refresh all Garmin activities" title="Sign in to refresh your Garmin history">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 7v5h-5M4 17v-5h5" />
+            <path d="M6.1 6.1A8 8 0 0 1 19.5 10M4.5 14A8 8 0 0 0 17.9 17.9" />
+          </svg>
+        </button>
+      </div>
     </header>
 
-    <p class="intro">
-      Select a year plus start/end months to plot average cleaned pace by month. Cleaning ignores
-      paces below 3:45 min/km or above 15:00 min/km.
-    </p>
+    <main id="main-content" class="main-content" tabindex="-1">
+      <div id="account-bar" class="account-bar" hidden>
+        <span id="account-name" class="account-name"></span>
+        <div class="account-actions">
+          <button id="account-button" class="text-button" type="button" aria-controls="account-view">Account</button>
+          <button id="signout-button" class="text-button" type="button">Sign out</button>
+        </div>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite">Opening your dashboard…</p>
 
-    <section class="controls" aria-label="Pace chart filters">
-      <label class="control-field" for="year-select">
-        <span>Select year</span>
-        <select id="year-select"></select>
-      </label>
-      <label class="control-field" for="start-month-select">
-        <span>Start month</span>
-        <select id="start-month-select"></select>
-      </label>
-      <label class="control-field" for="end-month-select">
-        <span>End month</span>
-        <select id="end-month-select"></select>
-      </label>
-    </section>
+      <section id="auth-view" class="auth-view" aria-labelledby="auth-title" hidden>
+        <h2 id="auth-title">Welcome back</h2>
+        <p id="auth-intro" class="form-intro">Sign in to explore your personal Garmin activity history.</p>
+        <form id="auth-form">
+          <div class="form-field">
+            <label for="app-username">Username</label>
+            <input id="app-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" minlength="3" maxlength="32" pattern="[a-zA-Z0-9][a-zA-Z0-9._\-]{2,31}" required />
+            <p id="username-hint" class="field-hint" hidden>3–32 letters, numbers, dots, dashes, or underscores.</p>
+          </div>
+          <div class="form-field">
+            <label for="app-password">Password</label>
+            <input id="app-password" name="password" type="password" autocomplete="current-password" maxlength="128" required />
+            <p id="password-hint" class="field-hint" hidden>Use at least 10 characters for your app password.</p>
+          </div>
+          <fieldset id="signup-garmin" class="garmin-fields" hidden disabled>
+            <legend>Connect your Garmin account</legend>
+            <p class="field-hint">Your Garmin details are saved securely so future sign-ins only need your app username and password.</p>
+            <div class="form-field">
+              <label for="signup-garmin-username">Garmin account username</label>
+              <input id="signup-garmin-username" name="garmin_username" type="email" inputmode="email" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="254" required />
+              <p class="field-hint">The email address you use for Garmin Connect.</p>
+            </div>
+            <div class="form-field">
+              <label for="signup-garmin-password">Garmin account password</label>
+              <input id="signup-garmin-password" name="garmin_password" type="password" autocomplete="off" maxlength="1024" required />
+            </div>
+          </fieldset>
+          <button id="auth-submit" class="primary-button full-width" type="submit">Sign in</button>
+        </form>
+        <p class="auth-switch"><span id="auth-switch-copy">New to Pace Explorer?</span> <button id="auth-switch" class="text-button" type="button">Create an account</button></p>
+      </section>
 
-    <section class="selection-summary" aria-live="polite">
-      <div><span>Months plotted</span><strong id="months-plotted">0</strong></div>
-      <div><span>Average pace</span><strong id="average-pace">—</strong></div>
-      <div><span>Activities included</span><strong id="activities-included">0</strong></div>
-    </section>
+      <section id="account-view" class="account-view" aria-labelledby="account-title" hidden>
+        <button id="back-button" class="back-button text-button" type="button">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12" /></svg>
+          Back to dashboard
+        </button>
+        <h2 id="account-title">Your Garmin connection</h2>
+        <p class="form-intro">Update the account used for your activity history. Saving these details starts a fresh import.</p>
+        <form id="garmin-form">
+          <div class="form-field">
+            <label for="garmin-username">Garmin account username</label>
+            <input id="garmin-username" name="garmin_username" type="email" inputmode="email" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="254" required />
+            <p class="field-hint">The email address you use for Garmin Connect.</p>
+          </div>
+          <div class="form-field">
+            <label for="garmin-password">Garmin account password</label>
+            <input id="garmin-password" name="garmin_password" type="password" autocomplete="off" maxlength="1024" required />
+            <p class="field-hint">Enter the password again to save a new connection.</p>
+          </div>
+          <button id="garmin-submit" class="primary-button" type="submit">Save and import history</button>
+        </form>
+        <details class="verification-details">
+          <summary>Garmin sign-in verification</summary>
+          <p>If Garmin asks for a verification code or blocks cloud sign-in, create a verified session on your computer, then paste its JSON below. <a href="https://github.com/StanleyCheng/garmin-activities-trend/blob/main/docs/vercel-setup.md#if-garmin-requires-verification-or-blocks-cloud-sign-in" target="_blank" rel="noopener noreferrer">Open the setup guide</a>.</p>
+          <form id="session-form">
+            <div class="form-field">
+              <label for="garmin-session">Verified Garmin session</label>
+              <textarea id="garmin-session" name="session_json" rows="5" autocomplete="off" spellcheck="false" required></textarea>
+              <p class="field-hint">Session details stay private to your account and are cleared from this form after saving.</p>
+            </div>
+            <button class="primary-button" type="submit">Save session and import</button>
+          </form>
+        </details>
+      </section>
 
-    <div class="table-scroll">
-      <table class="month-table">
-        <thead>
-          <tr>
-            <th scope="col">Month</th>
-            <th scope="col">Avg pace (mm:ss/km)</th>
-            <th scope="col">Activities</th>
-            <th scope="col">Chart month</th>
-          </tr>
-        </thead>
-        <tbody id="month-table-body"></tbody>
-      </table>
-    </div>
+      <section id="empty-view" class="empty-view" aria-labelledby="empty-title" hidden>
+        <h2 id="empty-title">Start with your Garmin history</h2>
+        <p>Import every activity from your connected Garmin account. Your monthly pace dashboard will appear here when the full import finishes.</p>
+        <button id="empty-refresh" class="primary-button" type="button">Import all Garmin activities</button>
+      </section>
 
-    <section class="cleaned-summary" aria-labelledby="cleaned-summary-title">
-      <h2 id="cleaned-summary-title">Cleaned-data summary</h2>
-      <dl>
-        <div><dt>Original activities</dt><dd id="original-activities">0</dd></div>
-        <div><dt>Cleaned activities</dt><dd id="cleaned-activities">0</dd></div>
-        <div><dt>Excluded activities</dt><dd id="excluded-activities">0</dd></div>
-        <div><dt>Min cleaned pace</dt><dd id="min-cleaned-pace">—</dd></div>
-        <div><dt>Max cleaned pace</dt><dd id="max-cleaned-pace">—</dd></div>
-      </dl>
-    </section>
+      <div id="dashboard-content" hidden>
+        <div class="dashboard-heading">
+          <h2>Your pace, month by month</h2>
+          <p>Explore the pace behind your activity history.</p>
+        </div>
 
-    <p id="chart-note" class="chart-note"></p>
-    <section class="chart-shell" aria-label="Average pace by month chart">
-      <div id="chart"></div>
-    </section>
-  </main>
+        <section class="controls" aria-label="Pace chart filters">
+          <label class="control-field" for="year-select"><span>Year</span><select id="year-select"></select></label>
+          <label class="control-field" for="start-month-select"><span>From</span><select id="start-month-select"></select></label>
+          <label class="control-field" for="end-month-select"><span>To</span><select id="end-month-select"></select></label>
+        </section>
 
+        <section class="selection-summary" aria-label="Selected period summary">
+          <div><span>Average pace <span class="unit">/km</span></span><strong id="average-pace">—</strong></div>
+          <div><span>Activities included</span><strong id="activities-included">0</strong></div>
+          <div><span>Months plotted</span><strong id="months-plotted">0</strong></div>
+        </section>
+
+        <section class="chart-section" aria-labelledby="chart-title">
+          <div class="section-heading"><h3 id="chart-title">Monthly average pace</h3><span class="chart-unit">mm:ss /km · lower is faster</span></div>
+          <div id="chart" role="img" aria-label="Average pace by month. Monthly values are also available in the table below."></div>
+          <p id="chart-note" class="chart-note"></p>
+        </section>
+
+        <section class="monthly-section" aria-labelledby="monthly-title">
+          <div class="section-heading"><h3 id="monthly-title">Monthly breakdown</h3><span id="table-year" class="table-year"></span></div>
+          <div class="table-scroll">
+            <table class="month-table">
+              <thead><tr><th scope="col">Month</th><th scope="col">Avg pace <span class="unit">/km</span></th><th scope="col">Activities</th></tr></thead>
+              <tbody id="month-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <details class="cleaned-summary">
+          <summary>About pace cleaning</summary>
+          <p>Only activities with a valid pace from 3:45 to 15:00 min/km contribute to this chart. Each month's pace is the average of its included activities.</p>
+          <dl>
+            <div><dt>All Garmin records</dt><dd id="original-activities">0</dd></div>
+            <div><dt>Activities included</dt><dd id="cleaned-activities">0</dd></div>
+            <div><dt>Activities excluded</dt><dd id="excluded-activities">0</dd></div>
+            <div><dt>Fastest included pace</dt><dd id="min-cleaned-pace">—</dd></div>
+            <div><dt>Slowest included pace</dt><dd id="max-cleaned-pace">—</dd></div>
+          </dl>
+        </details>
+      </div>
+    </main>
+    <footer class="app-footer">Pace Explorer <span aria-hidden="true">·</span> Your personal Garmin history</footer>
+  </div>
   <script type="module" src="app.js"></script>
 </body>
 </html>

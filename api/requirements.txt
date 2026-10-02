@@ -1,0 +1,2 @@
+garminconnect==0.3.17
+cryptography==46.0.5

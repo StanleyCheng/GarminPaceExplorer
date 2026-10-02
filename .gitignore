@@ -43,6 +43,9 @@ coverage/
 
 # Netlify
 .netlify/
+.vercel/
+output/playwright/
+.playwright-cli/
 
 # Generated local data and exports
 *.log

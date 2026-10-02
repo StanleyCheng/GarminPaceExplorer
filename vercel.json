@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "outputDirectory": "viz",
+  "regions": ["sin1"],
+  "functions": {
+    "api/dashboard.py": {
+      "maxDuration": 300,
+      "excludeFiles": "{.env,.env.*,tests/**,docs/**,planning/**,output/**,viz/**,*.xlsx,.garminconnect/**,garmin_tokens.json}"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "same-origin" }
+      ]
+    }
+  ]
+}

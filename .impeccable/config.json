@@ -22,5 +22,6 @@
         "reason": "Agent review: incumbent workbook wrappers intentionally keep table and grid edges flush; inner text rows have their own padding and explicit minimum heights. This dense data-table layout is domain appropriate and outside the icon selection scope."
       }
     ]
-  }
+  },
+  "buildPath": "code"
 }

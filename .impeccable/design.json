@@ -1,0 +1,437 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-02T08:12:04.810559Z",
+  "title": "Design System: Pace Explorer",
+  "extensions": {
+    "colorMeta": {
+      "navy": {
+        "role": "primary",
+        "displayName": "Navy",
+        "tonalRamp": [
+          "oklch(15% 0.0870 248.54)",
+          "oklch(25% 0.0870 248.54)",
+          "oklch(35% 0.0870 248.54)",
+          "oklch(45% 0.0870 248.54)",
+          "oklch(55% 0.0870 248.54)",
+          "oklch(65% 0.0870 248.54)",
+          "oklch(80% 0.0870 248.54)",
+          "oklch(95% 0.0870 248.54)"
+        ]
+      },
+      "chart-blue": {
+        "role": "primary",
+        "displayName": "Chart Blue",
+        "tonalRamp": [
+          "oklch(15% 0.1372 261.06)",
+          "oklch(25% 0.1372 261.06)",
+          "oklch(35% 0.1372 261.06)",
+          "oklch(45% 0.1372 261.06)",
+          "oklch(55% 0.1372 261.06)",
+          "oklch(65% 0.1372 261.06)",
+          "oklch(80% 0.1372 261.06)",
+          "oklch(95% 0.1372 261.06)"
+        ]
+      },
+      "green": {
+        "role": "secondary",
+        "displayName": "Green",
+        "tonalRamp": [
+          "oklch(15% 0.1063 154.93)",
+          "oklch(25% 0.1063 154.93)",
+          "oklch(35% 0.1063 154.93)",
+          "oklch(45% 0.1063 154.93)",
+          "oklch(55% 0.1063 154.93)",
+          "oklch(65% 0.1063 154.93)",
+          "oklch(80% 0.1063 154.93)",
+          "oklch(95% 0.1063 154.93)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0454 247.11)",
+          "oklch(25% 0.0454 247.11)",
+          "oklch(35% 0.0454 247.11)",
+          "oklch(45% 0.0454 247.11)",
+          "oklch(55% 0.0454 247.11)",
+          "oklch(65% 0.0454 247.11)",
+          "oklch(80% 0.0454 247.11)",
+          "oklch(95% 0.0454 247.11)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0320 243.52)",
+          "oklch(25% 0.0320 243.52)",
+          "oklch(35% 0.0320 243.52)",
+          "oklch(45% 0.0320 243.52)",
+          "oklch(55% 0.0320 243.52)",
+          "oklch(65% 0.0320 243.52)",
+          "oklch(80% 0.0320 243.52)",
+          "oklch(95% 0.0320 243.52)"
+        ]
+      },
+      "grid": {
+        "role": "neutral",
+        "displayName": "Grid",
+        "tonalRamp": [
+          "oklch(15% 0.0119 239.92)",
+          "oklch(25% 0.0119 239.92)",
+          "oklch(35% 0.0119 239.92)",
+          "oklch(45% 0.0119 239.92)",
+          "oklch(55% 0.0119 239.92)",
+          "oklch(65% 0.0119 239.92)",
+          "oklch(80% 0.0119 239.92)",
+          "oklch(95% 0.0119 239.92)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0042 236.50)",
+          "oklch(25% 0.0042 236.50)",
+          "oklch(35% 0.0042 236.50)",
+          "oklch(45% 0.0042 236.50)",
+          "oklch(55% 0.0042 236.50)",
+          "oklch(65% 0.0042 236.50)",
+          "oklch(80% 0.0042 236.50)",
+          "oklch(95% 0.0042 236.50)"
+        ]
+      },
+      "pale-blue": {
+        "role": "neutral",
+        "displayName": "Pale Blue",
+        "tonalRamp": [
+          "oklch(15% 0.0110 243.65)",
+          "oklch(25% 0.0110 243.65)",
+          "oklch(35% 0.0110 243.65)",
+          "oklch(45% 0.0110 243.65)",
+          "oklch(55% 0.0110 243.65)",
+          "oklch(65% 0.0110 243.65)",
+          "oklch(80% 0.0110 243.65)",
+          "oklch(95% 0.0110 243.65)"
+        ]
+      },
+      "pale-green": {
+        "role": "secondary",
+        "displayName": "Pale Green",
+        "tonalRamp": [
+          "oklch(15% 0.0140 155.59)",
+          "oklch(25% 0.0140 155.59)",
+          "oklch(35% 0.0140 155.59)",
+          "oklch(45% 0.0140 155.59)",
+          "oklch(55% 0.0140 155.59)",
+          "oklch(65% 0.0140 155.59)",
+          "oklch(80% 0.0140 155.59)",
+          "oklch(95% 0.0140 155.59)"
+        ]
+      },
+      "error": {
+        "role": "tertiary",
+        "displayName": "Error",
+        "tonalRamp": [
+          "oklch(15% 0.1378 22.77)",
+          "oklch(25% 0.1378 22.77)",
+          "oklch(35% 0.1378 22.77)",
+          "oklch(45% 0.1378 22.77)",
+          "oklch(55% 0.1378 22.77)",
+          "oklch(65% 0.1378 22.77)",
+          "oklch(80% 0.1378 22.77)",
+          "oklch(95% 0.1378 22.77)"
+        ]
+      },
+      "focus": {
+        "role": "primary",
+        "displayName": "Focus",
+        "tonalRamp": [
+          "oklch(15% 0.1372 261.06)",
+          "oklch(25% 0.1372 261.06)",
+          "oklch(35% 0.1372 261.06)",
+          "oklch(45% 0.1372 261.06)",
+          "oklch(55% 0.1372 261.06)",
+          "oklch(65% 0.1372 261.06)",
+          "oklch(80% 0.1372 261.06)",
+          "oklch(95% 0.1372 261.06)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "tonalRamp": [
+          "oklch(15% 0.0000 0.00)",
+          "oklch(25% 0.0000 0.00)",
+          "oklch(35% 0.0000 0.00)",
+          "oklch(45% 0.0000 0.00)",
+          "oklch(55% 0.0000 0.00)",
+          "oklch(65% 0.0000 0.00)",
+          "oklch(80% 0.0000 0.00)",
+          "oklch(95% 0.0000 0.00)"
+        ]
+      },
+      "input-border": {
+        "role": "neutral",
+        "displayName": "Input Border",
+        "tonalRamp": [
+          "oklch(15% 0.0248 244.21)",
+          "oklch(25% 0.0248 244.21)",
+          "oklch(35% 0.0248 244.21)",
+          "oklch(45% 0.0248 244.21)",
+          "oklch(55% 0.0248 244.21)",
+          "oklch(65% 0.0248 244.21)",
+          "oklch(80% 0.0248 244.21)",
+          "oklch(95% 0.0248 244.21)"
+        ]
+      },
+      "primary-hover": {
+        "role": "secondary",
+        "displayName": "Primary Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0902 154.55)",
+          "oklch(25% 0.0902 154.55)",
+          "oklch(35% 0.0902 154.55)",
+          "oklch(45% 0.0902 154.55)",
+          "oklch(55% 0.0902 154.55)",
+          "oklch(65% 0.0902 154.55)",
+          "oklch(80% 0.0902 154.55)",
+          "oklch(95% 0.0902 154.55)"
+        ]
+      },
+      "primary-active": {
+        "role": "secondary",
+        "displayName": "Primary Active",
+        "tonalRamp": [
+          "oklch(15% 0.0733 155.66)",
+          "oklch(25% 0.0733 155.66)",
+          "oklch(35% 0.0733 155.66)",
+          "oklch(45% 0.0733 155.66)",
+          "oklch(55% 0.0733 155.66)",
+          "oklch(65% 0.0733 155.66)",
+          "oklch(80% 0.0733 155.66)",
+          "oklch(95% 0.0733 155.66)"
+        ]
+      },
+      "header-hover": {
+        "role": "primary",
+        "displayName": "Header Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0859 247.10)",
+          "oklch(25% 0.0859 247.10)",
+          "oklch(35% 0.0859 247.10)",
+          "oklch(45% 0.0859 247.10)",
+          "oklch(55% 0.0859 247.10)",
+          "oklch(65% 0.0859 247.10)",
+          "oklch(80% 0.0859 247.10)",
+          "oklch(95% 0.0859 247.10)"
+        ]
+      },
+      "header-active": {
+        "role": "primary",
+        "displayName": "Header Active",
+        "tonalRamp": [
+          "oklch(15% 0.0764 247.30)",
+          "oklch(25% 0.0764 247.30)",
+          "oklch(35% 0.0764 247.30)",
+          "oklch(45% 0.0764 247.30)",
+          "oklch(55% 0.0764 247.30)",
+          "oklch(65% 0.0764 247.30)",
+          "oklch(80% 0.0764 247.30)",
+          "oklch(95% 0.0764 247.30)"
+        ]
+      },
+      "live-green": {
+        "role": "secondary",
+        "displayName": "Live Green",
+        "tonalRamp": [
+          "oklch(15% 0.1398 155.09)",
+          "oklch(25% 0.1398 155.09)",
+          "oklch(35% 0.1398 155.09)",
+          "oklch(45% 0.1398 155.09)",
+          "oklch(55% 0.1398 155.09)",
+          "oklch(65% 0.1398 155.09)",
+          "oklch(80% 0.1398 155.09)",
+          "oklch(95% 0.1398 155.09)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "brand": {
+        "displayName": "Brand",
+        "purpose": "The Pace Explorer name in the persistent header."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Dashboard and account screen headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Data section headings and fieldset legends."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Page text and form inputs."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Visible field labels and text actions."
+      },
+      "supporting": {
+        "displayName": "Supporting",
+        "purpose": "Field hints, chart notes, and compact metadata."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "control-state",
+        "value": ".16s ease-out",
+        "purpose": "Button background/border and input border state transitions; removed for reduced motion."
+      },
+      {
+        "name": "sync-flash",
+        "value": "1.2s ease-in-out infinite",
+        "purpose": "Opacity cycle from 1 to .2 and back on a running-import indicator; steady for reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "narrow",
+        "value": "720px"
+      },
+      {
+        "name": "smallest",
+        "value": "380px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid green action used for sign-in, account saves, and imports.",
+      "html": "<button class=\"ds-primary\" type=\"button\">Sign in</button>",
+      "css": ".ds-primary {font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif; line-height: 1.5; cursor: pointer; display:inline-flex; justify-content:center; align-items:center; min-height:48px; border:1px solid var(--green, #217346); border-radius:8px; padding:11px 20px; background:var(--green, #217346); color:#fff; font-size:.9375rem; font-weight:600; transition:background .16s ease-out,border-color .16s ease-out;} .ds-primary:hover:enabled {background:#195b36; border-color:#195b36;} .ds-primary:active:enabled {background:#12462a; border-color:#12462a;} .ds-primary:focus-visible { outline: 3px solid var(--focus, #4472c4); outline-offset: 3px; } .ds-primary:disabled {cursor:default; opacity:.6;} .ds-primary[aria-busy=\"true\"] {cursor:wait;} @media (prefers-reduced-motion:reduce) {.ds-primary {transition:none;}}"
+    },
+    {
+      "name": "Text Button",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Quiet navigation and alternate actions, with green for the current page.",
+      "html": "<button class=\"ds-text\" type=\"button\">Account</button>",
+      "css": ".ds-text {font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif; line-height: 1.5; cursor: pointer; min-height:44px; border:0; border-radius:6px; background:transparent; color:var(--navy, #1f4e78); padding:8px 2px; font-size:.875rem; font-weight:600; text-underline-offset:3px;} .ds-text:hover:enabled {text-decoration:underline;} .ds-text:active:enabled,.ds-text[aria-current=\"page\"] {color:var(--green, #217346);} .ds-text:focus-visible { outline: 3px solid var(--focus, #4472c4); outline-offset: 3px; } .ds-text:disabled {cursor:default; opacity:.6;}"
+    },
+    {
+      "name": "Header Refresh Button",
+      "kind": "button",
+      "refersTo": "button-refresh",
+      "description": "The outlined refresh action against the navy header.",
+      "html": "<div class=\"ds-header-sample\"><button class=\"ds-refresh\" type=\"button\" aria-label=\"Refresh all Garmin activities\"><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 7v5h-5M4 17v-5h5\"/><path d=\"M6.1 6.1A8 8 0 0 1 19.5 10M4.5 14A8 8 0 0 0 17.9 17.9\"/></svg></button></div>",
+      "css": ".ds-header-sample {display:flex; padding:16px; background:var(--navy, #1f4e78);} .ds-refresh {font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif; line-height: 1.5; cursor: pointer; display:grid; place-items:center; width:44px; height:44px; padding:0; border:1px solid #7391ab; border-radius:8px; background:transparent; color:white; transition:background .16s ease-out,border-color .16s ease-out;} .ds-refresh:hover:enabled {background:#32628c; border-color:#c8dae8;} .ds-refresh:active:enabled {background:#153f62;} .ds-refresh:focus-visible {outline:3px solid #b7e7cc; outline-offset:3px;} .ds-refresh:disabled {opacity:.6; cursor:default;} .ds-refresh[aria-busy=\"true\"] {background:#32628c; opacity:1; cursor:wait;} @media (prefers-reduced-motion:reduce) {.ds-refresh {transition:none;}}"
+    },
+    {
+      "name": "Form Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "A visible label and white field shared by account forms.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-username\">Username</label><input id=\"ds-username\" type=\"text\" autocomplete=\"username\"/><p class=\"ds-hint\">3–32 letters, numbers, dots, dashes, or underscores.</p></div>",
+      "css": ".ds-field {font-family:-apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif; color:var(--ink, #20364a); line-height:1.5;} .ds-field label {display:block; margin-bottom:8px; font-size:.875rem; font-weight:600;} .ds-field input {font:inherit; width:100%; min-width:0; min-height:48px; border:1px solid #aebdca; border-radius:8px; background:white; color:var(--ink, #20364a); padding:11px 12px; caret-color:var(--green, #217346); transition:border-color .16s ease-out;} .ds-field input:hover {border-color:var(--navy, #1f4e78);} .ds-field input:focus-visible {border-color:var(--focus, #4472c4); outline:3px solid var(--focus, #4472c4); outline-offset:3px;} .ds-hint {font-size:.8125rem; color:var(--muted, #5d6f7e); margin:7px 0 0;} @media (prefers-reduced-motion:reduce) {.ds-field input {transition:none;}}"
+    },
+    {
+      "name": "Filter Selector",
+      "kind": "input",
+      "refersTo": "select",
+      "description": "Compact labeled selectors for year and month filters.",
+      "html": "<label class=\"ds-control\" for=\"ds-month\"><span>From</span><select id=\"ds-month\"><option>January</option><option>February</option><option>March</option></select></label>",
+      "css": ".ds-control {display:grid; gap:8px; min-width:0; font-family:-apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif; line-height:1.5;} .ds-control>span {font-size:.8125rem; font-weight:600; color:var(--muted, #5d6f7e);} .ds-control select {font:inherit; width:100%; min-width:0; min-height:44px; border:1px solid #aebdca; border-radius:8px; background:white; color:var(--ink, #20364a); padding:8px 10px; font-size:.9375rem; cursor:pointer;} .ds-control select:hover {border-color:var(--navy, #1f4e78);} .ds-control select:focus-visible { outline: 3px solid var(--focus, #4472c4); outline-offset: 3px; }"
+    },
+    {
+      "name": "Account Navigation",
+      "kind": "nav",
+      "refersTo": "account-navigation",
+      "description": "A flat account row with identity on the left and text actions on the right.",
+      "html": "<div class=\"ds-account\"><span class=\"ds-name\">Username</span><div class=\"ds-actions\"><button class=\"ds-account-action\" type=\"button\">Account</button><button class=\"ds-account-action\" type=\"button\">Sign out</button></div></div>",
+      "css": ".ds-account {font-family:-apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif; line-height:1.5; min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:16px; border-bottom:1px solid var(--grid, #dbe3e9);} .ds-name {min-width:0; overflow-wrap:anywhere; font-size:.875rem; color:var(--muted, #5d6f7e);} .ds-actions {display:flex; gap:14px; flex-shrink:0;} .ds-account-action {font:inherit; min-height:44px; border:0; border-radius:6px; background:transparent; color:var(--navy, #1f4e78); padding:8px 2px; font-size:.875rem; font-weight:600; text-underline-offset:3px; cursor:pointer;} .ds-account-action:hover:enabled {text-decoration:underline;} .ds-account-action:active:enabled,.ds-account-action[aria-current=\"page\"] {color:var(--green, #217346);} .ds-account-action:focus-visible { outline: 3px solid var(--focus, #4472c4); outline-offset: 3px; } @media (max-width:720px) {.ds-account {min-height:64px;} .ds-actions {gap:16px;}}"
+    },
+    {
+      "name": "Chart Panel",
+      "kind": "card",
+      "refersTo": "chart-panel",
+      "description": "The white, bordered chart container and its heading treatment.",
+      "html": "<section class=\"ds-chart-panel\"><div class=\"ds-section-heading\"><h3>Monthly average pace</h3><span>mm:ss /km · lower is faster</span></div></section>",
+      "css": ".ds-chart-panel {font-family:-apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif; line-height:1.5; color:var(--ink, #20364a); padding:24px; background:white; border:1px solid var(--grid, #dbe3e9); border-radius:12px;} .ds-section-heading {display:flex; align-items:baseline; justify-content:space-between; gap:16px;} .ds-section-heading h3 {margin:0; font-size:1rem; line-height:1.4; font-weight:650;} .ds-section-heading span {color:var(--muted, #5d6f7e); font-size:.8125rem;} @media (max-width:720px) {.ds-chart-panel {padding:20px 12px 16px;} .ds-section-heading {padding:0 6px; flex-direction:column; gap:4px;}}"
+    },
+    {
+      "name": "Monthly Table",
+      "kind": "custom",
+      "refersTo": "monthly-table",
+      "description": "A rounded table wrapper with a pale heading and aligned numeric columns.",
+      "html": "<div class=\"ds-table-scroll\"><table class=\"ds-table\"><thead><tr><th scope=\"col\">Month</th><th scope=\"col\">Avg pace /km</th><th scope=\"col\">Activities</th></tr></thead><tbody><tr><td>January</td><td>—</td><td>0</td></tr><tr class=\"ds-outside-range\"><td>February</td><td>—</td><td>0</td></tr></tbody></table></div>",
+      "css": ".ds-table-scroll {overflow-x:auto; border:1px solid var(--grid, #dbe3e9); border-radius:10px;} .ds-table {font-family:-apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif; line-height:1.5; color:var(--ink, #20364a); width:100%; border-collapse:collapse; table-layout:fixed; font-size:.875rem; background:white; font-variant-numeric:tabular-nums;} .ds-table th,.ds-table td {padding:12px 18px; border-bottom:1px solid var(--grid, #dbe3e9); text-align:left;} .ds-table th {color:var(--muted, #5d6f7e); background:var(--pale-blue, #edf4fa); font-size:.8125rem; font-weight:600;} .ds-table th:nth-child(n+2),.ds-table td:nth-child(n+2) {text-align:right;} .ds-table tr:last-child td {border-bottom:0;} .ds-table .ds-outside-range {background:#f8fafb; color:var(--muted, #5d6f7e);} @media (max-width:720px) {.ds-table th,.ds-table td {padding:12px;}} @media (max-width:380px) {.ds-table th,.ds-table td {padding-inline:10px;}}"
+    },
+    {
+      "name": "Status Notice",
+      "kind": "custom",
+      "refersTo": "status",
+      "description": "The shared informational notice, with success and error variants in its CSS.",
+      "html": "<p class=\"ds-status\" role=\"status\">Opening your dashboard…</p>",
+      "css": ".ds-status {font-family:-apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif; line-height:1.5; margin:24px 0; border:1px solid #bacedd; border-radius:8px; padding:14px 16px; background:var(--pale-blue, #edf4fa); color:var(--navy, #1f4e78); font-size:.875rem; overflow-wrap:anywhere;} .ds-status-error {background:#fff2f1; border-color:#e6b4b3; color:var(--error, #962f32);} .ds-status-success {background:var(--pale-green, #edf7f0); border-color:#b9d8c5; color:#1c603c;} @media (max-width:720px) {.ds-status {margin:20px 0;}}"
+    },
+    {
+      "name": "Live Import Status",
+      "kind": "custom",
+      "description": "A running-import label paired with the dot; this preview uses the initial zero count.",
+      "html": "<div class=\"ds-sync-sample\"><div class=\"ds-update-label\"><span class=\"ds-sync-label\"><span class=\"ds-sync-dot\" aria-hidden=\"true\"></span><span>Loading · 0 records</span></span><time>Not synced yet</time></div></div>",
+      "css": ".ds-sync-sample {font-family:-apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif; background:var(--navy, #1f4e78); padding:16px; color:white;} .ds-update-label {display:grid; gap:2px; text-align:right; font-size:.75rem; line-height:1.45;} .ds-update-label time {color:white; font-variant-numeric:tabular-nums;} .ds-sync-label {display:flex; justify-content:flex-end; align-items:center; gap:7px; color:#d6e6f2;} .ds-sync-dot {width:8px; height:8px; flex-shrink:0; border-radius:50%; background:#75e3a0; animation:ds-sync-flash 1.2s ease-in-out infinite;} @keyframes ds-sync-flash {0%,100% {opacity:1;} 50% {opacity:.2;}} @media (max-width:720px) {.ds-update-label {font-size:.6875rem; max-width:164px;}} @media (prefers-reduced-motion:reduce) {.ds-sync-dot {animation:none;}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Pace Explorer",
+    "overview": "The existing icon and blue and green identity are the visual anchor. Navy carries the application name, blue carries the pace line, and green carries primary actions. The interface uses familiar forms, restrained headings, and a light blue-gray canvas to keep personal history readable.\n\nThe system is compact and flat. White data surfaces, fine separators, and clear labels establish hierarchy without decorative metric cards or raised effects. Account screens use the same controls and type as the dashboard. This document records the implementation in `viz/index.html`, `viz/styles.css`, and `viz/app.js`; it extends the incumbent identity rather than creating a new one.",
+    "keyCharacteristics": [
+      "Existing Pace Explorer icon and blue and green identity.",
+      "Single UI font with sentence-case headings and labels.",
+      "White data surfaces with quiet borders and no shadows.",
+      "Explicit input labels, visible keyboard focus, and generous action targets.",
+      "Tabular numerals and right-aligned numeric table columns."
+    ],
+    "rules": [
+      {
+        "name": "The Data and Action Rule",
+        "body": "Use chart blue for the pace series and green for primary actions; preserve navy as the identity and navigation anchor.",
+        "section": "colors"
+      },
+      {
+        "name": "The Honest Status Rule",
+        "body": "The live green indicator belongs to a running import and stays paired with its record-count label. Last-update metadata represents a completed successful sync.",
+        "section": "colors"
+      },
+      {
+        "name": "The Numeric Clarity Rule",
+        "body": "Use tabular numerals for update timestamps, summary values, and data tables. Keep pace units intact and align numeric table columns to the right.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Boundary Rule",
+        "body": "Separate data and form regions with tone, spacing, and fine borders. Keep surfaces flat at rest and during interaction.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** preserve the existing Pace Explorer icon and blue and green identity.",
+      "**Do** reuse the shared field, button, border, and spacing treatments across account and dashboard screens.",
+      "**Do** retain visible labels, keyboard outlines, and the established minimum action targets.",
+      "**Do** keep timestamps and data values legible with tabular numerals and intact units.",
+      "**Do** pair live sync animation with a running import, a visible count, and reduced-motion behavior."
+    ],
+    "donts": [
+      "**Don't** replace the established palette or identity asset when extending the interface.",
+      "**Don't** add ornamental metric cards to the dashboard's existing summary row.",
+      "**Don't** use a flashing status indicator for an idle or completed state.",
+      "**Don't** turn chart-specific legacy neutral colors into shared tokens without reconciling them with the reusable palette."
+    ]
+  }
+}
