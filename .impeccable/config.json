@@ -20,6 +20,24 @@
         ],
         "createdAt": "2026-10-02T05:51:16.444Z",
         "reason": "Agent review: incumbent workbook wrappers intentionally keep table and grid edges flush; inner text rows have their own padding and explicit minimum heights. This dense data-table layout is domain appropriate and outside the icon selection scope."
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "viz/index.html"
+        ],
+        "createdAt": "2026-10-02T08:27:10.646Z",
+        "reason": "User confirmed: flash a green top-bar dot while Garmin records load, then stop it. Agent verified setSyncState ties visibility to the active import lifecycle and reduced motion disables animation."
+      },
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "viz/styles.css"
+        ],
+        "createdAt": "2026-10-02T08:27:10.715Z",
+        "reason": "Agent review: line 33 is the established green top rule on .title-strip, which has no border-radius. The warning associates a neighboring rounded icon with the square header; the independent finish reviewer confirmed the false positive."
       }
     ]
   },
