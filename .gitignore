@@ -53,6 +53,7 @@ coverage/
 /stanley_garmin.md
 /garmin_activities_trend.html
 /viz/data/garmin_activities.json
+/output/imagegen/
 
 # OS and editor files
 .DS_Store
