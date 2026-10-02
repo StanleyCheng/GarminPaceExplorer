@@ -13,11 +13,13 @@ It retains its original `garmin-activities-trend` resource label. Renaming the
 GitHub repository and Vercel project preserves this database, its integration,
 and existing account identities.
 The integration supplies the three Supabase environment variables below.
-SQL schema execution still needs verification, and
-`CREDENTIALS_ENCRYPTION_KEY` still needs manual entry before account features
-are ready.
+Production setup was completed on 2 October 2026: all six app tables and nine
+server-only functions were installed and their privacy grants verified.
+`CREDENTIALS_ENCRYPTION_KEY` is stored as a Sensitive production variable.
+Account creation, sign-in, and encrypted per-user connection storage were
+verified with a temporary test account, which was then removed.
 
-## Finish the Supabase database setup
+## Initialize the Supabase database for a new environment
 
 1. Open the existing Supabase resource in the `garminpaceexplorer` project's
    **Storage** tab and open its Supabase project dashboard.
@@ -25,7 +27,10 @@ are ready.
    Use a separate Supabase project for Preview if you want to test without
    accessing production accounts.
 3. In **SQL Editor**, paste the complete contents of
-   [`supabase/schema.sql`](../supabase/schema.sql) and run it.
+   [`supabase/schema.sql`](../supabase/schema.sql) and run it. Alternatively,
+   apply the same file through the project's server-side PostgreSQL connection.
+   The schema runs in one transaction and reloads the Data API schema cache
+   after completion. It can be reapplied without deleting account data.
 
 The schema enables row level security on all app tables, denies direct browser
 access, and grants the API's server role access to the required functions.
@@ -44,8 +49,10 @@ password recovery are intentionally absent from this username-only app.
 Open [the Vercel project environment settings](https://vercel.com/stanleychengs-projects/garminpaceexplorer/settings/environment-variables).
 The connected integration exports `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`,
 and `SUPABASE_SECRET_KEY` automatically. Verify their **Production** scope,
-then add `CREDENTIALS_ENCRYPTION_KEY` yourself. If a value is missing, obtain
-it from the Supabase project's **Connect** dialog or **Settings → API Keys**.
+then configure `CREDENTIALS_ENCRYPTION_KEY` when initializing a new environment.
+The existing production key is already configured; keep it stable. If a
+Supabase value is missing, obtain it from the project's **Connect** dialog or
+**Settings → API Keys**.
 
 | Name | Value |
 | --- | --- |

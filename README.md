@@ -15,8 +15,8 @@ Vercel variables individually.
 
 The existing Supabase resource is connected to the `garminpaceexplorer`
 Vercel project on the Free plan in Singapore. The project rename preserves
-the database and integration. Follow the setup guide to verify the SQL schema
-and enter the encryption key before using hosted accounts.
+the database and integration. The production schema and encryption key are
+configured. See the setup guide when initializing another environment.
 
 Create an account with an app username/password and Garmin email/password.
 Later sign-ins need only the app username/password. Account settings let

@@ -1,5 +1,7 @@
--- Run once in a dedicated Supabase project's SQL Editor.
+-- Apply in a dedicated Supabase project using its SQL Editor or server connection.
 -- No app passwords are stored here: Supabase Auth handles them.
+
+begin;
 
 create table if not exists public.pace_profiles (
     user_id uuid primary key references auth.users(id) on delete cascade,
@@ -194,3 +196,7 @@ grant execute on function public.pace_auth_attempt(text,text),
     public.pace_claim_sync(uuid,uuid,uuid), public.pace_append_sync(uuid,uuid,uuid,integer,jsonb,text),
     public.pace_finish_sync(uuid,uuid,uuid,jsonb), public.pace_release_sync(uuid,uuid,uuid)
     to service_role;
+
+-- Publish the completed schema to the Data API after the transaction commits.
+notify pgrst, 'reload schema';
+commit;
