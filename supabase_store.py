@@ -201,7 +201,7 @@ class Supabase:
         user_id = str(UUID(user["id"]))
         username = (user.get("app_metadata") or {}).get("pace_username")
         if not username:
-            raise DashboardError("This account is not registered for GarminPaceExplorer.", 403)
+            raise DashboardError("This account is not registered for Garmin Pace Lens.", 403)
         return {"id": user_id, "username": username}
 
 

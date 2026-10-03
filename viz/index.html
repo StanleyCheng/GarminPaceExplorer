@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#1f4e78" />
   <meta name="description" content="Explore your Garmin training volume, pace, effort, consistency, and performance trends." />
-  <title>GarminPaceExplorer</title>
-  <meta name="application-name" content="GarminPaceExplorer" />
-  <meta name="apple-mobile-web-app-title" content="GarminPaceExplorer" />
-  <link rel="icon" href="favicon.ico?v=garmin-runner-1" sizes="16x16 32x32 48x48" type="image/x-icon" />
-  <link rel="icon" href="favicon-16x16.png?v=garmin-runner-1" sizes="16x16" type="image/png" />
-  <link rel="icon" href="favicon-32x32.png?v=garmin-runner-1" sizes="32x32" type="image/png" />
-  <link rel="icon" href="icons/garmin-pace-explorer.png?v=garmin-runner-1" sizes="512x512" type="image/png" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=garmin-runner-1" sizes="180x180" />
+  <title>Garmin Pace Lens</title>
+  <meta name="application-name" content="Garmin Pace Lens" />
+  <meta name="apple-mobile-web-app-title" content="Garmin Pace Lens" />
+  <link rel="icon" href="favicon.ico?v=garmin-pace-lens-1" sizes="16x16 32x32 48x48" type="image/x-icon" />
+  <link rel="icon" href="favicon-16x16.png?v=garmin-pace-lens-1" sizes="16x16" type="image/png" />
+  <link rel="icon" href="favicon-32x32.png?v=garmin-pace-lens-1" sizes="32x32" type="image/png" />
+  <link rel="icon" href="icons/garmin-pace-lens.png?v=garmin-pace-lens-1" sizes="512x512" type="image/png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=garmin-pace-lens-1" sizes="180x180" />
   <script defer src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -21,8 +21,8 @@
   <div id="app" class="app-shell">
     <header class="title-strip">
       <div class="brand">
-        <img class="brand-icon" src="apple-touch-icon.png?v=garmin-runner-1" alt="" width="40" height="40" />
-        <h1>Garmin<wbr>Pace<wbr>Explorer</h1>
+        <img class="brand-icon" src="apple-touch-icon.png?v=garmin-pace-lens-1" alt="" width="44" height="44" />
+        <h1>Garmin Pace Lens</h1>
       </div>
       <div class="refresh-control">
         <div class="update-label">
@@ -81,7 +81,7 @@
           </fieldset>
           <button id="auth-submit" class="primary-button full-width" type="submit">Sign in</button>
         </form>
-        <p class="auth-switch"><span id="auth-switch-copy">New to GarminPaceExplorer?</span> <button id="auth-switch" class="text-button" type="button">Create an account</button></p>
+        <p class="auth-switch"><span id="auth-switch-copy">New to Garmin Pace Lens?</span> <button id="auth-switch" class="text-button" type="button">Create an account</button></p>
       </section>
 
       <section id="account-view" class="account-view" aria-labelledby="account-title" hidden>
@@ -106,7 +106,7 @@
         </form>
         <details class="verification-details">
           <summary>Garmin sign-in verification</summary>
-          <p>If Garmin asks for a verification code or blocks cloud sign-in, create a verified session on your computer, then paste its JSON below. <a href="https://github.com/StanleyCheng/GarminPaceExplorer/blob/main/docs/vercel-setup.md#if-garmin-requires-verification-or-blocks-cloud-sign-in" target="_blank" rel="noopener noreferrer">Open the setup guide</a>.</p>
+          <p>If Garmin asks for a verification code or blocks cloud sign-in, create a verified session on your computer, then paste its JSON below. <a href="https://github.com/StanleyCheng/GarminPaceLens/blob/main/docs/vercel-setup.md#if-garmin-requires-verification-or-blocks-cloud-sign-in" target="_blank" rel="noopener noreferrer">Open the setup guide</a>.</p>
           <form id="session-form">
             <div class="form-field">
               <label for="garmin-session">Verified Garmin session</label>
@@ -126,7 +126,7 @@
           <span>Choose Garmin JSON export</span>
           <input class="local-data-input" type="file" accept=".json,application/json" aria-label="Choose Garmin JSON export" />
         </label>
-        <p id="local-online-link" class="local-online-link" hidden>Want to sign in or sync Garmin? <a href="https://garminpaceexplorer.vercel.app">Open the online dashboard</a>.</p>
+        <p id="local-online-link" class="local-online-link" hidden>Want to sign in or sync Garmin? <a href="https://garminpacelens.vercel.app">Open the online dashboard</a>.</p>
       </section>
 
       <div id="dashboard-content" hidden>
@@ -205,7 +205,7 @@
       </div>
       <div id="insight-tooltip" class="insight-tooltip" role="tooltip" hidden></div>
     </main>
-    <footer class="app-footer">GarminPaceExplorer <span aria-hidden="true">·</span> Your personal Garmin history</footer>
+    <footer class="app-footer">Garmin Pace Lens <span aria-hidden="true">·</span> Your personal Garmin history</footer>
   </div>
   <script type="module" src="app.js"></script>
 </body>

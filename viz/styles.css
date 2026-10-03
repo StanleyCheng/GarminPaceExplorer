@@ -32,7 +32,7 @@ svg { flex-shrink: 0; }
 .app-shell { min-height: 100dvh; display: flex; flex-direction: column; }
 .title-strip { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 84px; padding: 16px max(32px, env(safe-area-inset-right)) 16px max(32px, env(safe-area-inset-left)); background: var(--navy); color: white; border-top: 3px solid var(--green); }
 .brand { display: flex; align-items: center; min-width: 0; gap: 12px; }
-.brand-icon { width: 40px; height: 40px; flex-shrink: 0; border-radius: 10px; }
+.brand-icon { width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; }
 h1 { font-size: 1.375rem; font-weight: 650; letter-spacing: -.02em; line-height: 1.2; }
 .refresh-control { display: flex; align-items: center; gap: 14px; margin-left: auto; flex-shrink: 0; }
 .update-label { display: grid; gap: 2px; text-align: right; font-size: .75rem; line-height: 1.45; }
@@ -146,7 +146,7 @@ select:hover { border-color: var(--navy); }
 @media (max-width: 720px) {
   .title-strip { padding: 14px max(20px, env(safe-area-inset-right)) 14px max(20px, env(safe-area-inset-left)); gap: 12px; min-height: 80px; }
   .brand { gap: 9px; }
-  .brand-icon { width: 34px; height: 34px; border-radius: 8px; }
+  .brand-icon { border-radius: 8px; }
   h1 { font-size: 1.125rem; }
   .refresh-control { gap: 9px; }
   .update-label { font-size: .6875rem; max-width: 164px; }
@@ -178,7 +178,7 @@ select:hover { border-color: var(--navy); }
 @media (max-width: 380px) {
   .title-strip { padding-inline: 12px; gap: 8px; }
   .brand { gap: 6px; }
-  .brand-icon { width: 28px; height: 28px; border-radius: 6px; }
+  .brand-icon { border-radius: 6px; }
   h1 { font-size: 1rem; max-width: 72px; }
   .refresh-control { gap: 6px; }
   .update-label { max-width: 146px; }

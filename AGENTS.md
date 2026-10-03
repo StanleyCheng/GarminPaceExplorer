@@ -1,10 +1,10 @@
-# GarminPaceExplorer Repository Guidelines
+# GarminPaceLens Repository Guidelines
 
 ## Project Structure & Module Organization
 
 The Python pipeline lives at the repository root. `get-garmin.py` is the CLI entry point: it fetches Garmin activities, writes an Excel export, and produces `viz/data/garmin_activities.json`. Keep data-fetching code in `get_data.py`, record normalization and filtering in `transform.py`, and aggregation/serialization in `aggregate.py`.
 
-`viz/` contains the deployable static dashboard (`index.html`, `app.js`, `styles.css`); the `garminpaceexplorer` Vercel project serves this directory and the Python API in `api/`. Netlify can publish `viz/` for local-export viewing without hosted account features. Put unit tests in `tests/`, grouped by the module or behavior under test. Planning material belongs in `planning/` or `docs/`, not alongside runtime code.
+`viz/` contains the deployable static dashboard (`index.html`, `app.js`, `styles.css`); the `garminpacelens` Vercel project serves this directory and the Python API in `api/`. Netlify can publish `viz/` for local-export viewing without hosted account features. Put unit tests in `tests/`, grouped by the module or behavior under test. Planning material belongs in `planning/` or `docs/`, not alongside runtime code.
 
 ## Build, Test, and Development Commands
 

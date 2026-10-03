@@ -1,10 +1,10 @@
-# GarminPaceExplorer
+# GarminPaceLens
 
 This project fetches Garmin Connect activities, cleans run/walk/hike records,
 writes an Excel export, and builds a static interactive Plotly training dashboard.
 
-- Repository: [StanleyCheng/GarminPaceExplorer](https://github.com/StanleyCheng/GarminPaceExplorer)
-- Production app: [GarminPaceExplorer](https://garminpaceexplorer.vercel.app)
+- Repository: [StanleyCheng/GarminPaceLens](https://github.com/StanleyCheng/GarminPaceLens)
+- Production app: [GarminPaceLens](https://garminpacelens.vercel.app)
 
 The Vercel dashboard supports separate user accounts and on-demand imports of
 each user's complete Garmin activity history. Supabase Auth handles app
@@ -13,7 +13,7 @@ connections. See [Vercel and Supabase setup](docs/vercel-setup.md) for the SQL
 schema and four server environment variables. Keep `.env` local and enter
 Vercel variables individually.
 
-The existing Supabase resource is connected to the `garminpaceexplorer`
+The existing Supabase resource is connected to the `garminpacelens`
 Vercel project on the Free plan in Singapore. The project rename preserves
 the database and integration. The production schema and encryption key are
 configured. See the setup guide when initializing another environment.

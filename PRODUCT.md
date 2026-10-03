@@ -1,4 +1,4 @@
-# GarminPaceExplorer
+# GarminPaceLens
 
 <!-- impeccable:product-schema 1 -->
 
@@ -38,8 +38,9 @@ changing the Garmin username and password. Each user's data stays separate.
 
 ## Brand Commitments
 
-Keep the GarminPaceExplorer name, existing icon, and blue/green identity. The user
-requested a cleaner, more polished interface using Impeccable.
+Use the Garmin Pace Lens name and the supplied `GarminPaceLens.png` artwork
+for the app logo and icons. Retain the blue/green interface identity and the
+cleaner, more polished interface created using Impeccable.
 
 ## Evidence on Hand
 

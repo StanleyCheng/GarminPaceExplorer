@@ -1,5 +1,5 @@
 [project]
-name = "garminpaceexplorer"
+name = "garminpacelens"
 version = "0.1.0"
 description = "Explore personal Garmin activity history and monthly pace with private accounts."
 readme = "README.md"

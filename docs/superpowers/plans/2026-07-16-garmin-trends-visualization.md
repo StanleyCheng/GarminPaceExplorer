@@ -15,7 +15,7 @@
 ## File Structure
 
 ```
-GarminPaceExplorer/
+GarminPaceLens/
 ├── get-garmin.py              # thin CLI shim — delegates to modules
 ├── get_data.py                # NEW: Garmin auth + paginated fetch + retry
 ├── transform.py               # NEW: normalize, clean (drop rules), bucket class

@@ -306,7 +306,7 @@ wheels = [
 ]
 
 [[package]]
-name = "garminpaceexplorer"
+name = "garminpacelens"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

@@ -1,4 +1,4 @@
-# GarminPaceExplorer: Usage Guide
+# GarminPaceLens: Usage Guide
 
 This guide covers the normal workflow: install the project once, fetch Garmin
 activities, view the interactive dashboard, and optionally export a static
@@ -12,7 +12,7 @@ active Garmin Connect account.
 Open a terminal in the project directory:
 
 ```sh
-cd /Users/stanley/projects/GarminPaceExplorer
+cd /path/to/GarminPaceLens
 ```
 
 ## 2. Install the project

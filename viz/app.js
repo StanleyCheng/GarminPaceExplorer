@@ -107,7 +107,7 @@ function setAuthMode(signup) {
   password.minLength = signup ? 10 : 1;
   document.getElementById("signup-garmin-password").value = "";
   document.getElementById("auth-submit").textContent = signup ? "Create account and import" : "Sign in";
-  document.getElementById("auth-switch-copy").textContent = signup ? "Already have an account?" : "New to GarminPaceExplorer?";
+  document.getElementById("auth-switch-copy").textContent = signup ? "Already have an account?" : "New to Garmin Pace Lens?";
   document.getElementById("auth-switch").textContent = signup ? "Sign in" : "Create an account";
 }
 
@@ -157,7 +157,7 @@ async function loadLocalFile(event) {
     document.getElementById("local-file-replace").hidden = false;
     showStatus(`${file.name} opened locally. Your activity data stays in this browser.`, "success");
   } catch (error) {
-    showStatus(`${error.message} Choose a GarminPaceExplorer JSON export and try again.`, "error");
+    showStatus(`${error.message} Choose a Garmin Pace Lens JSON export and try again.`, "error");
   } finally {
     input.value = "";
   }

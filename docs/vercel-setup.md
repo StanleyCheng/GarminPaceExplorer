@@ -1,6 +1,6 @@
-# GarminPaceExplorer: Vercel and Supabase setup
+# GarminPaceLens: Vercel and Supabase setup
 
-The `garminpaceexplorer` Vercel project serves the static dashboard in `viz/`
+The `garminpacelens` Vercel project serves the static dashboard in `viz/`
 and the Python API at `/api/dashboard`. A dedicated Supabase project stores each user's profile,
 Garmin connection, import progress, and completed dashboard separately.
 Supabase Auth manages app passwords. Garmin credentials and reusable sessions
@@ -21,7 +21,7 @@ verified with a temporary test account, which was then removed.
 
 ## Initialize the Supabase database for a new environment
 
-1. Open the existing Supabase resource in the `garminpaceexplorer` project's
+1. Open the existing Supabase resource in the `garminpacelens` project's
    **Storage** tab and open its Supabase project dashboard.
 2. Verify that the connection provides the required variables for **Production**.
    Use a separate Supabase project for Preview if you want to test without
@@ -43,10 +43,12 @@ creates confirmed Auth users with internal aliases such as
 `username@accounts.pace-explorer.invalid` so the app can use username/password
 sign-in. These aliases do not receive email. Email confirmation and email
 password recovery are intentionally absent from this username-only app.
+Keep this internal alias domain unchanged after the Garmin Pace Lens rename;
+existing accounts use it as their sign-in identity.
 
 ## Enter environment variables individually
 
-Open [the Vercel project environment settings](https://vercel.com/stanleychengs-projects/garminpaceexplorer/settings/environment-variables).
+Open [the Vercel project environment settings](https://vercel.com/stanleychengs-projects/garminpacelens/settings/environment-variables).
 The connected integration exports `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`,
 and `SUPABASE_SECRET_KEY` automatically. Verify their **Production** scope,
 then configure `CREDENTIALS_ENCRYPTION_KEY` when initializing a new environment.
@@ -90,8 +92,8 @@ not used by this version.
 
 ## Deploy and use the app
 
-The production app is [GarminPaceExplorer](https://garminpaceexplorer.vercel.app).
-The project is connected to [StanleyCheng/GarminPaceExplorer](https://github.com/StanleyCheng/GarminPaceExplorer);
+The production app is [GarminPaceLens](https://garminpacelens.vercel.app).
+The project is connected to [StanleyCheng/GarminPaceLens](https://github.com/StanleyCheng/GarminPaceLens);
 pushes to `main` deploy automatically.
 
 After saving the variables and applying the SQL schema, open **Deployments**
