@@ -1,4 +1,5 @@
 import { createInsightDashboard } from "./insight-ui.mjs";
+import { parseLocalExport } from "./local-export.mjs";
 
 const statusEl = document.getElementById("status");
 const refreshButton = document.getElementById("refresh-button");
@@ -31,11 +32,11 @@ function setUpdatedTime(value) {
     lastUpdatedEl.textContent = new Intl.DateTimeFormat(undefined, {
       year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit",
     }).format(updated);
-    lastUpdatedEl.title = `Last successful Garmin sync: ${updated.toLocaleString()}`;
+    lastUpdatedEl.title = `${localMode ? "Export generated" : "Last successful Garmin sync"}: ${updated.toLocaleString()}`;
   } else {
     lastUpdatedEl.removeAttribute("datetime");
-    lastUpdatedEl.textContent = "Not synced yet";
-    lastUpdatedEl.title = "A date appears after a complete import";
+    lastUpdatedEl.textContent = localMode ? "No export loaded" : "Not synced yet";
+    lastUpdatedEl.title = localMode ? "Choose a Garmin JSON export below" : "A date appears after a complete import";
   }
 }
 
@@ -52,7 +53,8 @@ function setSyncState(running, count = 0) {
   syncRunning = running;
   document.getElementById("sync-dot").hidden = !running;
   document.getElementById("sync-label").textContent = running
-    ? `Loading · ${count.toLocaleString()} records` : "Last data update";
+    ? `Loading · ${count.toLocaleString()} records` : localMode ? "Local export" : "Last data update";
+  refreshButton.hidden = localMode;
   refreshButton.disabled = running || !currentUser;
   refreshButton.setAttribute("aria-label", running
     ? "Loading all Garmin activities" : "Refresh all Garmin activities");
@@ -71,6 +73,13 @@ function clearUser() {
   localMode = false;
   dashboard.clear();
   accountBar.hidden = true;
+  accountButton.hidden = false;
+  document.getElementById("local-file-replace").hidden = true;
+  document.getElementById("local-file-picker").hidden = true;
+  document.getElementById("local-online-link").hidden = true;
+  document.getElementById("empty-refresh").hidden = false;
+  document.getElementById("empty-title").textContent = "Start with your Garmin history";
+  document.getElementById("empty-intro").textContent = "Import your Garmin activities to explore ten training and performance views.";
   dashboardContent.hidden = true;
   accountView.hidden = true;
   emptyView.hidden = true;
@@ -116,6 +125,44 @@ function applyPayload(payload) {
   showDashboard();
 }
 
+function showLocalFilePicker() {
+  localMode = true;
+  currentUser = { username: "Local preview" };
+  accountBar.hidden = true;
+  authView.hidden = true;
+  accountView.hidden = true;
+  dashboardContent.hidden = true;
+  emptyView.hidden = false;
+  document.getElementById("empty-title").textContent = "Open your Garmin export";
+  document.getElementById("empty-intro").textContent = "Choose the garmin_activities.json file created by get-garmin.py in viz/data. Your activity data stays in this browser.";
+  document.getElementById("empty-refresh").hidden = true;
+  document.getElementById("local-file-picker").hidden = false;
+  document.getElementById("local-online-link").hidden = false;
+  setUpdatedTime(null);
+  setSyncState(false);
+  showStatus("");
+}
+
+async function loadLocalFile(event) {
+  const input = event.currentTarget;
+  const file = input.files?.[0];
+  if (!file) return;
+  try {
+    const payload = parseLocalExport(await file.text());
+    applyPayload(payload);
+    accountBar.hidden = false;
+    document.getElementById("account-name").textContent = "Local data preview";
+    accountButton.hidden = true;
+    document.getElementById("signout-button").hidden = true;
+    document.getElementById("local-file-replace").hidden = false;
+    showStatus(`${file.name} opened locally. Your activity data stays in this browser.`, "success");
+  } catch (error) {
+    showStatus(`${error.message} Choose a GarminPaceExplorer JSON export and try again.`, "error");
+  } finally {
+    input.value = "";
+  }
+}
+
 async function apiRequest(action, body) {
   let response;
   try {
@@ -148,6 +195,10 @@ async function apiRequest(action, body) {
 }
 
 async function loadDashboard() {
+  if (location.protocol === "file:") {
+    showLocalFilePicker();
+    return true;
+  }
   try {
     const result = await apiRequest();
     if (!result.user?.username) throw new Error("Your account could not be loaded. Sign in again.");
@@ -170,17 +221,20 @@ async function loadDashboard() {
       try {
         const response = await fetch("./data/garmin_activities.json", { cache: "no-store" });
         if (response.ok) {
-          localMode = true;
-          currentUser = { username: "Local preview" };
+          showLocalFilePicker();
           accountBar.hidden = false;
           document.getElementById("account-name").textContent = "Local data preview";
+          accountButton.hidden = true;
           document.getElementById("signout-button").hidden = true;
-          applyPayload(await response.json());
+          document.getElementById("local-file-replace").hidden = false;
+          applyPayload(parseLocalExport(await response.text()));
           setSyncState(false);
           showStatus("Local data preview. Live Garmin imports and accounts are available on the deployed app.");
           return true;
         }
-      } catch { /* A missing local export returns to the account screen. */ }
+      } catch { /* A missing or invalid local export can be selected manually. */ }
+      showLocalFilePicker();
+      return true;
     }
     showAuth(error.status === 401 ? "" : error.message, error.status !== 401);
     return false;
@@ -190,7 +244,7 @@ async function loadDashboard() {
 async function refresh() {
   if (syncRunning || !currentUser) return;
   if (localMode) {
-    showStatus("For a local update, run get-garmin.py and reload this page. Live Garmin imports are available on the deployed app.");
+    showStatus("Run get-garmin.py for newer data, then choose the refreshed JSON export.");
     return;
   }
   const generation = ++refreshGeneration;
@@ -338,6 +392,7 @@ async function submitSession(event) {
 
 async function init() {
   dashboard.init();
+  document.querySelectorAll(".local-data-input").forEach((input) => input.addEventListener("change", loadLocalFile));
   refreshButton.addEventListener("click", refresh);
   document.getElementById("empty-refresh").addEventListener("click", refresh);
   document.getElementById("auth-form").addEventListener("submit", submitAuth);

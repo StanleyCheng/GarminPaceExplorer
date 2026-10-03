@@ -42,6 +42,10 @@
       <div id="account-bar" class="account-bar" hidden>
         <span id="account-name" class="account-name"></span>
         <div class="account-actions">
+          <label id="local-file-replace" class="local-file-control local-file-control-quiet" hidden>
+            <span>Choose another export</span>
+            <input class="local-data-input" type="file" accept=".json,application/json" aria-label="Choose another Garmin JSON export" />
+          </label>
           <button id="account-button" class="text-button" type="button" aria-controls="account-view">Account</button>
           <button id="signout-button" class="text-button" type="button">Sign out</button>
         </div>
@@ -116,8 +120,13 @@
 
       <section id="empty-view" class="empty-view" aria-labelledby="empty-title" hidden>
         <h2 id="empty-title">Start with your Garmin history</h2>
-        <p>Import your Garmin activities to explore ten training and performance views.</p>
+        <p id="empty-intro">Import your Garmin activities to explore ten training and performance views.</p>
         <button id="empty-refresh" class="primary-button" type="button">Import all Garmin activities</button>
+        <label id="local-file-picker" class="local-file-control" hidden>
+          <span>Choose Garmin JSON export</span>
+          <input class="local-data-input" type="file" accept=".json,application/json" aria-label="Choose Garmin JSON export" />
+        </label>
+        <p id="local-online-link" class="local-online-link" hidden>Want to sign in or sync Garmin? <a href="https://garminpaceexplorer.vercel.app">Open the online dashboard</a>.</p>
       </section>
 
       <div id="dashboard-content" hidden>

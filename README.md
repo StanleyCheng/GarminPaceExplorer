@@ -74,8 +74,10 @@ rule. Increase `--max-activities` if the Garmin account contains more than
 
 ## Display the interactive chart
 
-Serve `viz/` over HTTP; opening `index.html` directly does not allow its JSON
-request in every browser.
+In browsers that allow local module scripts, you can open `viz/index.html`
+directly and choose the `viz/data/garmin_activities.json` export when prompted.
+The file is read in your browser and is not uploaded. To load the export
+automatically, or if your browser blocks local scripts, serve `viz/` over HTTP:
 
 ```sh
 uv run python -m http.server 8000 --directory viz
@@ -89,7 +91,8 @@ progression, VO₂ max estimates, pace distribution, climbing, and best recorded
 whole activities near a chosen distance. The monthly table follows the filters.
 Included activities use a whole-activity pace of 3:00–20:00 per km; missing or
 implausible heart rate leaves the activity available for non-HR views.
-For newer data locally, run `get-garmin.py` again and reload. On Vercel, use
+For newer data locally, run `get-garmin.py` again and choose the refreshed
+export (or reload the HTTP preview). On Vercel, use
 the top-right refresh icon, beside the last successful data-update time.
 
 For a non-interactive image from the Excel file:
