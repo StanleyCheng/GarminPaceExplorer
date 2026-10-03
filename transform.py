@@ -89,12 +89,9 @@ _RUN_KEYWORDS = ("run",)
 _WALK_KEYWORDS = ("walking", "walk")
 _HIKE_KEYWORDS = ("hiking", "hike")
 
-# Pace bands by activity class (seconds per km)
-_PACE_BANDS = {
-    "run":  (225, 900),
-    "walk": (225, 1500),
-    "hike": (225, 1800),
-}
+# Accepted whole-activity pace: 3:00–20:00 per km for every included type.
+_PACE_MIN_S_PER_KM = 180
+_PACE_MAX_S_PER_KM = 1200
 _DISTANCE_MIN_M = 500
 _DISTANCE_MAX_M = 200_000
 _DURATION_MIN_S = 60
@@ -136,15 +133,15 @@ def clean(activities):
         dur = a.get("duration_s")
         if dur is None or dur < _DURATION_MIN_S or dur > _DURATION_MAX_S:
             _drop("duration"); continue
-        hr = a.get("avg_hr")
-        if hr is None or hr < _HR_MIN or hr > _HR_MAX:
-            _drop("hr"); continue
         pace = a.get("pace_s_per_km")
         if pace is None:
             _drop("no_pace"); continue
-        lo, hi = _PACE_BANDS[cls]
-        if pace < lo or pace > hi:
+        if pace < _PACE_MIN_S_PER_KM or pace > _PACE_MAX_S_PER_KM:
             _drop("pace"); continue
+        hr = a.get("avg_hr")
+        if hr is None or hr < _HR_MIN or hr > _HR_MAX:
+            # Invalid HR must not erase otherwise valid training volume.
+            a = {**a, "avg_hr": None}
         kept.append(a)
 
     return kept, dropped_by_reason

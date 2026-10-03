@@ -1,7 +1,7 @@
 # GarminPaceExplorer
 
 This project fetches Garmin Connect activities, cleans run/walk/hike records,
-writes an Excel export, and builds a static interactive Plotly dashboard.
+writes an Excel export, and builds a static interactive Plotly training dashboard.
 
 - Repository: [StanleyCheng/GarminPaceExplorer](https://github.com/StanleyCheng/GarminPaceExplorer)
 - Production app: [GarminPaceExplorer](https://garminpaceexplorer.vercel.app)
@@ -81,8 +81,14 @@ request in every browser.
 uv run python -m http.server 8000 --directory viz
 ```
 
-Open [http://localhost:8000](http://localhost:8000). The page supports year and
-start/end month filters, monthly average pace, and cleaned-data summaries.
+Open [http://localhost:8000](http://localhost:8000). The page supports year,
+month, activity type, and distance filters. Swipe the icon rail (or use its
+arrow buttons and keyboard) to switch between weekly volume, comparable pace,
+year comparisons, pace versus heart rate, an activity calendar, long-run
+progression, VO₂ max estimates, pace distribution, climbing, and best recorded
+whole activities near a chosen distance. The monthly table follows the filters.
+Included activities use a whole-activity pace of 3:00–20:00 per km; missing or
+implausible heart rate leaves the activity available for non-HR views.
 For newer data locally, run `get-garmin.py` again and reload. On Vercel, use
 the top-right refresh icon, beside the last successful data-update time.
 
@@ -105,4 +111,5 @@ Garmin credentials must never be placed in `viz/` or committed. Neither
 ```sh
 uv run python -m pytest
 node --check viz/app.js
+node --test tests/test_insights.mjs
 ```

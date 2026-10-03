@@ -1,14 +1,6 @@
-const MONTH_NUMBERS = Array.from({ length: 12 }, (_, index) => index + 1);
-const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const MIN_PACE_SECONDS = 3 * 60 + 45;
-const MAX_PACE_SECONDS = 15 * 60;
-const state = { year: null, startMonth: 1, endMonth: 12 };
+import { createInsightDashboard } from "./insight-ui.mjs";
 
 const statusEl = document.getElementById("status");
-const chartEl = document.getElementById("chart");
-const yearSelect = document.getElementById("year-select");
-const startMonthSelect = document.getElementById("start-month-select");
-const endMonthSelect = document.getElementById("end-month-select");
 const refreshButton = document.getElementById("refresh-button");
 const lastUpdatedEl = document.getElementById("last-updated");
 const authView = document.getElementById("auth-view");
@@ -17,262 +9,13 @@ const emptyView = document.getElementById("empty-view");
 const accountBar = document.getElementById("account-bar");
 const accountButton = document.getElementById("account-button");
 const dashboardContent = document.getElementById("dashboard-content");
+const dashboard = createInsightDashboard();
 let currentPaceData = null;
 let localMode = false;
 let currentUser = null;
 let signupMode = false;
 let syncRunning = false;
 let refreshGeneration = 0;
-
-function formatPaceMMSS(seconds) {
-  if (!Number.isFinite(seconds)) return "—";
-  const rounded = Math.round(seconds);
-  return `${Math.floor(rounded / 60)}:${String(rounded % 60).padStart(2, "0")}`;
-}
-
-function buildPaceData(activities) {
-  const byYear = {};
-  const cleanedPaces = [];
-
-  for (const activity of activities) {
-    if (!activity || typeof activity !== "object") continue;
-    const { year, month, pace_s_per_km: pace } = activity;
-    if (!Number.isInteger(year) || !Number.isInteger(month) || month < 1 || month > 12
-        || !Number.isFinite(pace) || pace < MIN_PACE_SECONDS || pace > MAX_PACE_SECONDS) continue;
-
-    const yearData = byYear[year] ||= {
-      pace_sums: Array(12).fill(0),
-      pace_s_per_km: Array(12).fill(null),
-      activity_count: Array(12).fill(0),
-    };
-    yearData.pace_sums[month - 1] += pace;
-    yearData.activity_count[month - 1] += 1;
-    cleanedPaces.push(pace);
-  }
-
-  for (const yearData of Object.values(byYear)) {
-    yearData.pace_s_per_km = yearData.pace_sums.map((sum, index) =>
-      yearData.activity_count[index] ? sum / yearData.activity_count[index] : null);
-    delete yearData.pace_sums;
-  }
-
-  return { byYear, cleanedPaces, originalCount: activities.length };
-}
-
-function summarizeMonths(yearData) {
-  const selectedPaces = [];
-  let activityCount = 0;
-
-  for (const month of MONTH_NUMBERS) {
-    if (month < state.startMonth || month > state.endMonth) continue;
-    const pace = yearData.pace_s_per_km[month - 1];
-    if (Number.isFinite(pace)) selectedPaces.push(pace);
-    activityCount += yearData.activity_count[month - 1] || 0;
-  }
-
-  return {
-    monthsPlotted: selectedPaces.length,
-    averagePace: selectedPaces.length
-      ? selectedPaces.reduce((sum, pace) => sum + pace, 0) / selectedPaces.length
-      : null,
-    activityCount,
-  };
-}
-
-function buildPaceScale(paces) {
-  const present = paces.filter(Number.isFinite);
-  const top = present.length
-    ? Math.ceil((Math.max(...present) + 30) / 60) * 60
-    : 600;
-  const step = top <= 600 ? 60 : top <= 1200 ? 120 : 300;
-  const tickvals = [];
-  for (let value = 0; value <= top; value += step) tickvals.push(value);
-  return { range: [0, top], tickvals, ticktext: tickvals.map(formatPaceMMSS) };
-}
-
-function renderMonthTable(yearData) {
-  const body = document.getElementById("month-table-body");
-  body.replaceChildren();
-
-  for (const month of MONTH_NUMBERS) {
-    const inRange = month >= state.startMonth && month <= state.endMonth;
-    const row = document.createElement("tr");
-    if (!inRange) row.className = "outside-range";
-
-    const values = [
-      MONTH_NAMES[month - 1],
-      inRange ? formatPaceMMSS(yearData.pace_s_per_km[month - 1]) : "—",
-      inRange ? String(yearData.activity_count[month - 1] || 0) : "—",
-    ];
-
-    for (const value of values) {
-      const cell = document.createElement("td");
-      cell.textContent = value;
-      row.appendChild(cell);
-    }
-    body.appendChild(row);
-  }
-}
-
-function renderSelectionSummary(yearData) {
-  const summary = summarizeMonths(yearData);
-  document.getElementById("months-plotted").textContent = summary.monthsPlotted;
-  document.getElementById("average-pace").textContent = formatPaceMMSS(summary.averagePace);
-  document.getElementById("activities-included").textContent = summary.activityCount.toLocaleString();
-}
-
-function renderCleanedSummary(paceData) {
-  const cleaned = paceData.cleanedPaces.length;
-  document.getElementById("original-activities").textContent = paceData.originalCount.toLocaleString();
-  document.getElementById("cleaned-activities").textContent = cleaned.toLocaleString();
-  document.getElementById("excluded-activities").textContent =
-    (paceData.originalCount - cleaned).toLocaleString();
-  document.getElementById("min-cleaned-pace").textContent = paceData.cleanedPaces.length
-    ? `${formatPaceMMSS(paceData.cleanedPaces.reduce((min, pace) => Math.min(min, pace), Infinity))} /km`
-    : "—";
-  document.getElementById("max-cleaned-pace").textContent = paceData.cleanedPaces.length
-    ? `${formatPaceMMSS(paceData.cleanedPaces.reduce((max, pace) => Math.max(max, pace), 0))} /km`
-    : "—";
-}
-
-function renderChart(yearData) {
-  const paces = yearData.pace_s_per_km.map((pace, index) => {
-    const month = index + 1;
-    return month >= state.startMonth && month <= state.endMonth ? pace : null;
-  });
-  const paceLabels = paces.map((pace) => Number.isFinite(pace) ? formatPaceMMSS(pace) : "");
-  const paceScale = buildPaceScale(paces);
-  const isNarrow = window.innerWidth <= 720;
-
-  const trace = {
-    x: MONTH_NUMBERS,
-    y: paces,
-    type: "scatter",
-    mode: isNarrow ? "lines+markers" : "lines+markers+text",
-    connectgaps: false,
-    line: { color: "#4472c4", width: 3 },
-    marker: { color: "#4472c4", size: 7 },
-    text: paceLabels,
-    textposition: "top center",
-    textfont: { color: "#333333", size: 12 },
-    cliponaxis: false,
-    customdata: paceLabels,
-    hovertemplate: "Month %{x}<br>Average pace: %{customdata} /km<extra></extra>",
-  };
-
-  const layout = {
-    autosize: true,
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
-    font: { family: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', color: "#5d6f7e", size: 11 },
-    margin: isNarrow ? { l: 40, r: 10, t: 28, b: 32 } : { l: 48, r: 20, t: 38, b: 36 },
-    showlegend: false,
-    hovermode: "closest",
-    dragmode: false,
-    xaxis: {
-      range: [0.5, 12.5],
-      tickmode: "array",
-      tickvals: MONTH_NUMBERS,
-      ticktext: MONTH_NAMES.map((month, index) => isNarrow && index % 2 ? "" : month.slice(0, 3)),
-      fixedrange: true,
-      showgrid: false,
-      zeroline: false,
-    },
-    yaxis: {
-      ...paceScale,
-      fixedrange: true,
-      gridcolor: "#e4eaf0",
-      zerolinecolor: "#bfbfbf",
-    },
-    annotations: paceLabels.some(Boolean) ? [] : [{
-      text: "No pace data for this selection",
-      x: 0.5,
-      y: 0.5,
-      xref: "paper",
-      yref: "paper",
-      showarrow: false,
-      font: { size: 16, color: "#666666" },
-    }],
-  };
-
-  if (typeof Plotly === "undefined") {
-    chartEl.textContent = "The chart could not load. Your monthly values are available in the table below.";
-    return;
-  }
-  Plotly.react(chartEl, [trace], layout, {
-    responsive: true,
-    displayModeBar: false,
-    displaylogo: false,
-  });
-}
-
-function populateSelects(years) {
-  const previousYear = state.year;
-  yearSelect.replaceChildren();
-  startMonthSelect.replaceChildren();
-  endMonthSelect.replaceChildren();
-  for (const year of years) {
-    const option = document.createElement("option");
-    option.value = year;
-    option.textContent = year;
-    yearSelect.appendChild(option);
-  }
-
-  for (const month of MONTH_NUMBERS) {
-    for (const select of [startMonthSelect, endMonthSelect]) {
-      const option = document.createElement("option");
-      option.value = month;
-      option.textContent = MONTH_NAMES[month - 1].slice(0, 3);
-      select.appendChild(option);
-    }
-  }
-
-  state.year = years.includes(String(previousYear)) ? previousYear : years.at(-1);
-  yearSelect.value = state.year;
-  startMonthSelect.value = state.startMonth;
-  endMonthSelect.value = state.endMonth;
-}
-
-function render(paceData) {
-  const yearData = paceData.byYear[state.year];
-  renderMonthTable(yearData);
-  renderSelectionSummary(yearData);
-  renderChart(yearData);
-  const rangeLabel = state.startMonth === state.endMonth
-    ? MONTH_NAMES[state.startMonth - 1]
-    : `${MONTH_NAMES[state.startMonth - 1]}–${MONTH_NAMES[state.endMonth - 1]}`;
-  const rangeNote = state.startMonth !== 1 || state.endMonth !== 12
-    ? " Months outside this range are hidden in the chart." : "";
-  document.getElementById("chart-note").textContent =
-    `${rangeLabel} ${state.year}.${rangeNote} Gaps within this selection mean no included activities.`;
-  document.getElementById("table-year").textContent = state.year;
-}
-
-function addInteractions() {
-  yearSelect.addEventListener("change", () => {
-    state.year = yearSelect.value;
-    if (currentPaceData) render(currentPaceData);
-  });
-  startMonthSelect.addEventListener("change", () => {
-    state.startMonth = Number(startMonthSelect.value);
-    if (state.startMonth > state.endMonth) {
-      state.endMonth = state.startMonth;
-      endMonthSelect.value = state.endMonth;
-    }
-    if (currentPaceData) render(currentPaceData);
-  });
-  endMonthSelect.addEventListener("change", () => {
-    state.endMonth = Number(endMonthSelect.value);
-    if (state.endMonth < state.startMonth) {
-      state.startMonth = state.endMonth;
-      startMonthSelect.value = state.startMonth;
-    }
-    if (currentPaceData) render(currentPaceData);
-  });
-  window.addEventListener("resize", () => {
-    if (currentPaceData) renderChart(currentPaceData.byYear[state.year]);
-  });
-}
 
 function showStatus(message, kind = "") {
   statusEl.className = `status${kind ? ` status-${kind}` : ""}`;
@@ -302,7 +45,7 @@ function showDashboard() {
   accountButton.removeAttribute("aria-current");
   dashboardContent.hidden = !currentPaceData;
   emptyView.hidden = Boolean(currentPaceData);
-  if (currentPaceData) render(currentPaceData);
+  if (currentPaceData) dashboard.render();
 }
 
 function setSyncState(running, count = 0) {
@@ -326,9 +69,7 @@ function clearUser() {
   currentUser = null;
   currentPaceData = null;
   localMode = false;
-  state.year = null;
-  state.startMonth = 1;
-  state.endMonth = 12;
+  dashboard.clear();
   accountBar.hidden = true;
   dashboardContent.hidden = true;
   accountView.hidden = true;
@@ -337,9 +78,6 @@ function clearUser() {
   document.getElementById("garmin-session").value = "";
   document.getElementById("signup-garmin-password").value = "";
   document.getElementById("app-password").value = "";
-  if (typeof Plotly !== "undefined") Plotly.purge(chartEl);
-  chartEl.replaceChildren();
-  document.getElementById("month-table-body").replaceChildren();
   setUpdatedTime(null);
   setSyncState(false);
 }
@@ -373,20 +111,7 @@ function showAuth(message = "", isError = false) {
 
 function applyPayload(payload) {
   if (!Array.isArray(payload.activities)) throw new Error("The Garmin response is invalid. Refresh again to retry.");
-  const paceData = buildPaceData(payload.activities);
-  const dropped = Object.values(payload.meta?.activity_count_dropped || {})
-    .filter(Number.isFinite).reduce((sum, count) => sum + count, 0);
-  paceData.originalCount = Number.isInteger(payload.meta?.activity_count_fetched)
-    ? payload.meta.activity_count_fetched : payload.activities.length + dropped;
-  const years = Object.keys(paceData.byYear).sort((a, b) => Number(a) - Number(b));
-  if (!years.length) {
-    const year = String(new Date().getFullYear());
-    years.push(year);
-    paceData.byYear[year] = { pace_s_per_km: Array(12).fill(null), activity_count: Array(12).fill(0) };
-  }
-  currentPaceData = paceData;
-  populateSelects(years);
-  renderCleanedSummary(paceData);
+  currentPaceData = dashboard.applyPayload(payload);
   setUpdatedTime(payload.meta?.generated_at);
   showDashboard();
 }
@@ -561,9 +286,7 @@ async function submitGarmin(event) {
     document.getElementById("garmin-password").value = "";
     // The old payload belongs to the previous Garmin connection.
     currentPaceData = null;
-    if (typeof Plotly !== "undefined") Plotly.purge(chartEl);
-    chartEl.replaceChildren();
-    document.getElementById("month-table-body").replaceChildren();
+    dashboard.clear();
     setUpdatedTime(null);
     if (await loadDashboard()) await refresh();
   } catch (error) {
@@ -614,7 +337,7 @@ async function submitSession(event) {
 }
 
 async function init() {
-  addInteractions();
+  dashboard.init();
   refreshButton.addEventListener("click", refresh);
   document.getElementById("empty-refresh").addEventListener("click", refresh);
   document.getElementById("auth-form").addEventListener("submit", submitAuth);

@@ -30,26 +30,30 @@ def test_clean_drops_no_pace():
 
 
 def test_clean_drops_too_fast_pace():
-    kept, drops = clean([_act(pace_s_per_km=200)])  # 3:20 — under 3:45
+    kept, drops = clean([_act(pace_s_per_km=179)])
     assert kept == [] and drops == {"pace": 1}
 
 
+@pytest.mark.parametrize("activity_type", ["running", "walking", "hiking"])
+@pytest.mark.parametrize("pace", [180, 1200])
+def test_clean_keeps_new_pace_boundaries(activity_type, pace):
+    kept, drops = clean([_act(activity_type=activity_type, pace_s_per_km=pace)])
+    assert len(kept) == 1 and drops == {}
+
+
 def test_clean_keeps_walk_at_20min_per_km():
-    # 20 min/km = 1200 s/km — outside run band but inside walk band
     kept, drops = clean([_act(activity_type="walking", pace_s_per_km=1200)])
     assert len(kept) == 1
 
 
 def test_clean_drops_walk_too_slow():
-    # 26 min/km = 1560 s/km — past walk band (25:00 = 1500 s)
-    kept, drops = clean([_act(activity_type="walking", pace_s_per_km=1560)])
+    kept, drops = clean([_act(activity_type="walking", pace_s_per_km=1201)])
     assert kept == [] and drops == {"pace": 1}
 
 
-def test_clean_keeps_hike_at_25min_per_km():
-    # 25 min/km = 1500 s/km — inside hike band (3:45–30:00)
+def test_clean_drops_hike_over_20min_per_km():
     kept, drops = clean([_act(activity_type="hiking", pace_s_per_km=1500)])
-    assert len(kept) == 1
+    assert kept == [] and drops == {"pace": 1}
 
 
 def test_clean_drops_distance_below_500m():
@@ -97,14 +101,15 @@ def test_clean_drops_duration_too_long():
     assert kept == [] and drops == {"duration": 1}
 
 
-def test_clean_drops_hr_too_low():
+def test_clean_keeps_activity_with_invalid_hr_for_volume():
     kept, drops = clean([_act(avg_hr=20)])
-    assert kept == [] and drops == {"hr": 1}
+    assert len(kept) == 1 and kept[0]["avg_hr"] is None and drops == {}
 
 
-def test_clean_drops_hr_too_high():
-    kept, drops = clean([_act(avg_hr=240)])
-    assert kept == [] and drops == {"hr": 1}
+@pytest.mark.parametrize("hr", [None, 240])
+def test_clean_keeps_activity_with_missing_or_high_hr(hr):
+    kept, drops = clean([_act(avg_hr=hr)])
+    assert len(kept) == 1 and kept[0]["avg_hr"] is None and drops == {}
 
 
 def test_clean_aggregates_drop_reasons():
@@ -115,4 +120,5 @@ def test_clean_aggregates_drop_reasons():
         _act(avg_hr=20),
     ]
     kept, drops = clean(acts)
-    assert drops == {"date": 1, "no_pace": 1, "type": 1, "hr": 1}
+    assert drops == {"date": 1, "no_pace": 1, "type": 1}
+    assert len(kept) == 1 and kept[0]["avg_hr"] is None

@@ -195,7 +195,7 @@ The page is a vertical application shell with a sticky, full-width header and a 
 
 Forms remain one column. The sign-in form is capped at (430px), account settings at (560px), and explanatory cleaning text at (70ch). Reused gaps and padding follow the frontmatter spacing scale, with larger section breaks rather than nested cards.
 
-The dashboard has a three-column filter row: columns are (180px) wide on desktop, then share available width at the main narrow breakpoint. A bordered summary row follows. The chart surface comes before the monthly table and cleaning disclosure. Chart height changes from (360px) to (310px) on narrow screens; chart point labels are removed and alternating month ticks are suppressed there. Table scrolling is contained within its rounded wrapper.
+The dashboard has a five-field filter row on desktop, arranged as three then two fields on narrow screens. A bordered summary row follows. A horizontal, scrollable icon rail selects one of ten views; arrow controls and keyboard navigation supplement touch swiping. The selected chart comes before the monthly table and cleaning disclosure. Chart height is (360px), or (310px) on narrow screens; two-panel charts grow to (520px), or (500px) on narrow screens. The calendar chart scrolls inside its own viewport on phones. Table scrolling is contained within its rounded wrapper.
 
 Interactive text actions, refresh, selectors, and disclosure summaries have minimum targets of (44px); primary buttons and form inputs have minimum heights of (48px).
 
@@ -231,7 +231,7 @@ The brand icon and name anchor the header. Update metadata is right-aligned besi
 
 ### Cards / Containers
 
-The chart is the principal white panel: a thin grid-colored border, panel-radius corners, and spacious internal padding. On narrow screens its padding contracts and its heading and units stack. Authentication and account forms are unboxed against the page canvas.
+The chart is the principal white panel: a thin grid-colored border, panel-radius corners, and spacious internal padding. On narrow screens its padding contracts and its heading and units stack. The icon rail uses compact buttons with a green selected state, descriptive tooltips on pointer devices, and a persistent description beside the selected chart. Authentication and account forms are unboxed against the page canvas.
 
 ### Data Table
 

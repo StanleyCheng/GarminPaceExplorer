@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#1f4e78" />
-  <meta name="description" content="Explore your personal Garmin activity history and monthly pace." />
+  <meta name="description" content="Explore your Garmin training volume, pace, effort, consistency, and performance trends." />
   <title>GarminPaceExplorer</title>
   <meta name="application-name" content="GarminPaceExplorer" />
   <meta name="apple-mobile-web-app-title" content="GarminPaceExplorer" />
@@ -116,31 +116,59 @@
 
       <section id="empty-view" class="empty-view" aria-labelledby="empty-title" hidden>
         <h2 id="empty-title">Start with your Garmin history</h2>
-        <p>Import every activity from your connected Garmin account. Your monthly pace dashboard will appear here when the full import finishes.</p>
+        <p>Import your Garmin activities to explore ten training and performance views.</p>
         <button id="empty-refresh" class="primary-button" type="button">Import all Garmin activities</button>
       </section>
 
       <div id="dashboard-content" hidden>
         <div class="dashboard-heading">
-          <h2>Your pace, month by month</h2>
-          <p>Explore the pace behind your activity history.</p>
+          <h2>Your training, in context</h2>
+          <p>Follow your volume, pace, effort, and consistency over time.</p>
         </div>
 
-        <section class="controls" aria-label="Pace chart filters">
+        <section class="controls" aria-label="Activity filters">
           <label class="control-field" for="year-select"><span>Year</span><select id="year-select"></select></label>
           <label class="control-field" for="start-month-select"><span>From</span><select id="start-month-select"></select></label>
           <label class="control-field" for="end-month-select"><span>To</span><select id="end-month-select"></select></label>
+          <label class="control-field" for="activity-type"><span>Activity</span><select id="activity-type"><option value="run">Runs</option><option value="walk">Walks</option><option value="hike">Hikes</option><option value="all">All types</option></select></label>
+          <label class="control-field" for="distance-bucket"><span>Distance</span><select id="distance-bucket"><option value="all">All distances</option><option value="<3">Under 3 km</option><option value="3-5">3–5 km</option><option value="5-10">5–10 km</option><option value="10-15">10–15 km</option><option value="15-25">15–25 km</option><option value="25-40">25–40 km</option><option value="40+">40 km or more</option></select></label>
         </section>
 
         <section class="selection-summary" aria-label="Selected period summary">
           <div><span>Average pace <span class="unit">/km</span></span><strong id="average-pace">—</strong></div>
-          <div><span>Activities included</span><strong id="activities-included">0</strong></div>
-          <div><span>Months plotted</span><strong id="months-plotted">0</strong></div>
+          <div><span>Distance</span><strong id="total-distance">0 km</strong></div>
+          <div><span>Activities</span><strong id="activities-included">0</strong></div>
+          <div><span>Active days</span><strong id="active-days">0</strong></div>
+        </section>
+
+        <section class="insight-navigation" aria-label="Choose a training view">
+          <div class="insight-heading"><h3>Explore your data</h3><span>Swipe to see all ten views</span></div>
+          <div class="insight-rail-frame">
+            <button id="rail-prev" class="rail-arrow" type="button" aria-label="Scroll training views left" title="Previous views"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" /></svg></button>
+            <div id="insight-rail" class="insight-rail" role="group" aria-label="Training views">
+              <button class="insight-tab" type="button" data-insight="volume" data-tooltip="Weekly distance or hours with a four-week average" aria-label="Weekly training volume" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V11m5 9V5m5 15v-8m5 8V8M3 20h18" /></svg><span>Volume</span></button>
+              <button class="insight-tab" type="button" data-insight="pace" data-tooltip="Individual pace and a rolling median" aria-label="Comparable-run pace" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17 8 12l4 3 4-8 5-3M3 21h18" /></svg><span>Pace</span></button>
+              <button class="insight-tab" type="button" data-insight="compare" data-tooltip="Compare monthly pace and cumulative distance across years" aria-label="Year-over-year progress" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19 9 11l4 3 8-9M3 13l5-5 4 2 5-7M3 21h18" /></svg><span>Years</span></button>
+              <button class="insight-tab" type="button" data-insight="effort" data-tooltip="Compare activity pace and average heart rate" aria-label="Pace and heart rate" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 13h4l2-5 4 9 3-6 2 2h5M4 5h16" /></svg><span>Effort</span></button>
+              <button class="insight-tab" type="button" data-insight="calendar" data-tooltip="See daily activity distance and gaps" aria-label="Activity calendar" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18m-14 4h2m3 0h2m3 0h2m-12 4h2m3 0h2" /></svg><span>Calendar</span></button>
+              <button class="insight-tab" type="button" data-insight="endurance" data-tooltip="Longest weekly activity and distance mix" aria-label="Long-run progression" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19h18M4 16l5-5 4 3 7-9M4 7h4M4 11h2" /></svg><span>Long runs</span></button>
+              <button class="insight-tab" type="button" data-insight="vo2max" data-tooltip="Monthly median Garmin VO₂ max estimate" aria-label="VO2 max estimate" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M7 15c2-4 4-6 5-6s3 2 5 6M8 18h8" /></svg><span>VO₂ max</span></button>
+              <button class="insight-tab" type="button" data-insight="distribution" data-tooltip="Pace median and spread within each month" aria-label="Pace distribution" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18m10-18v18M5 7h4m-4 10h4m6-10h4m-4 10h4M5 11h14v4H5z" /></svg><span>Spread</span></button>
+              <button class="insight-tab" type="button" data-insight="climbing" data-tooltip="Weekly climbing and pace on hillier activities" aria-label="Climbing and pace" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 20 7-11 4 5 3-9 6 15H2Zm11-6 3-3 2 3" /></svg><span>Climbing</span></button>
+              <button class="insight-tab" type="button" data-insight="best" data-tooltip="Best recorded whole activities near a chosen distance" aria-label="Best recorded whole activities" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v7a5 5 0 0 1-10 0V3Zm0 2H4v3a4 4 0 0 0 3 4m10-7h3v3a4 4 0 0 1-3 4m-5 3v4m-4 0h8m-9 2h10" /></svg><span>Best</span></button>
+            </div>
+            <button id="rail-next" class="rail-arrow" type="button" aria-label="Scroll training views right" title="Next views"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg></button>
+          </div>
         </section>
 
         <section class="chart-section" aria-labelledby="chart-title">
-          <div class="section-heading"><h3 id="chart-title">Monthly average pace</h3><span class="chart-unit">mm:ss /km · lower is faster</span></div>
-          <div id="chart" role="img" aria-label="Average pace by month. Monthly values are also available in the table below."></div>
+          <div class="section-heading"><h3 id="chart-title">Weekly training volume</h3><span id="chart-unit" class="chart-unit">Kilometres and four-week average</span></div>
+          <p id="insight-description" class="insight-description"></p>
+          <div class="chart-options">
+            <label id="weekly-unit-field" class="control-field" for="weekly-unit"><span>Weekly measure</span><select id="weekly-unit"><option value="distance">Distance (km)</option><option value="hours">Time (hours)</option></select></label>
+            <label id="best-distance-field" class="control-field" for="best-distance" hidden><span>Target distance</span><select id="best-distance"><option value="5">5 km</option><option value="10">10 km</option><option value="21.0975">Half marathon</option></select></label>
+          </div>
+          <div id="chart-viewport" class="chart-viewport"><div id="chart" role="img" aria-label="Selected training chart. Values are described in chart tooltips and the monthly table below."></div></div>
           <p id="chart-note" class="chart-note"></p>
         </section>
 
@@ -148,15 +176,15 @@
           <div class="section-heading"><h3 id="monthly-title">Monthly breakdown</h3><span id="table-year" class="table-year"></span></div>
           <div class="table-scroll">
             <table class="month-table">
-              <thead><tr><th scope="col">Month</th><th scope="col">Avg pace <span class="unit">/km</span></th><th scope="col">Activities</th></tr></thead>
+              <thead><tr><th scope="col">Month</th><th scope="col">Avg pace <span class="unit">/km</span></th><th scope="col">Distance</th><th scope="col">Activities</th></tr></thead>
               <tbody id="month-table-body"></tbody>
             </table>
           </div>
         </section>
 
         <details class="cleaned-summary">
-          <summary>About pace cleaning</summary>
-          <p>Only activities with a valid pace from 3:45 to 15:00 min/km contribute to this chart. Each month's pace is the average of its included activities.</p>
+          <summary>About included data</summary>
+          <p>Run, walk, and hike activities with whole-activity pace from 3:00 to 20:00 min/km are included. Activities with missing or implausible average heart rate can still contribute distance, duration, and pace; they are left out of the effort view. The period average gives each activity equal weight.</p>
           <dl>
             <div><dt>All Garmin records</dt><dd id="original-activities">0</dd></div>
             <div><dt>Activities included</dt><dd id="cleaned-activities">0</dd></div>
@@ -166,6 +194,7 @@
           </dl>
         </details>
       </div>
+      <div id="insight-tooltip" class="insight-tooltip" role="tooltip" hidden></div>
     </main>
     <footer class="app-footer">GarminPaceExplorer <span aria-hidden="true">·</span> Your personal Garmin history</footer>
   </div>
